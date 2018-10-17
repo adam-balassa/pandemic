@@ -1,0 +1,1 @@
+14:53:47	InvalidCommand	The command you typed is syntactically wrong
