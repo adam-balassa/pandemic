@@ -2,7 +2,7 @@ package Pandemic.Table;
 
 import Pandemic.Cards.Card;
 import Pandemic.Cards.CityCard;
-import Pandemic.Virus;
+import Pandemic.Core.Virus;
 
 import java.io.Serializable;
 import java.util.*;

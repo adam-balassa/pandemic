@@ -3,7 +3,7 @@ package Pandemic.Characters;
 import Pandemic.Cards.Card;
 import Pandemic.Exceptions.AmbigousAction;
 import Pandemic.Exceptions.CannotPerformAction;
-import Pandemic.Hand;
+import Pandemic.Core.Hand;
 import Pandemic.Table.Field;
 
 public class OperationExpert extends Character {
@@ -14,7 +14,8 @@ public class OperationExpert extends Character {
     @Override
     public int build() throws CannotPerformAction {
         if(hand.getCards().size() > 1) throw new AmbigousAction("Choose the card you'd like to discard");
-        return super.build();
+        this.field.build();
+        return 1;
     }
 
     @Override

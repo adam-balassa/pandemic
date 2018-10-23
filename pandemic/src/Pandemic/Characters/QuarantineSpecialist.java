@@ -1,7 +1,7 @@
 package Pandemic.Characters;
 
 import Pandemic.Exceptions.UnnecessaryAction;
-import Pandemic.Hand;
+import Pandemic.Core.Hand;
 import Pandemic.Table.Field;
 
 public class QuarantineSpecialist extends Character {

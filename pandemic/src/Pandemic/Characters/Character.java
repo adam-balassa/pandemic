@@ -4,9 +4,9 @@ import Pandemic.Cards.Card;
 import Pandemic.Cards.CityCard;
 import Pandemic.Cards.EventCard;
 import Pandemic.Exceptions.*;
-import Pandemic.Hand;
+import Pandemic.Core.Hand;
 import Pandemic.Table.Field;
-import Pandemic.Virus;
+import Pandemic.Core.Virus;
 
 import java.io.Serializable;
 import java.util.ArrayList;

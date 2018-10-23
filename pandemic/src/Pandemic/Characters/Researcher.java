@@ -2,7 +2,7 @@ package Pandemic.Characters;
 
 import Pandemic.Cards.CityCard;
 import Pandemic.Exceptions.CannotPerformAction;
-import Pandemic.Hand;
+import Pandemic.Core.Hand;
 import Pandemic.Table.Field;
 
 public class Researcher extends Character {

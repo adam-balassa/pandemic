@@ -1,4 +1,4 @@
-package Pandemic;
+package Pandemic.Core;
 
 import Pandemic.Cards.Card;
 import Pandemic.Cards.EventCard;

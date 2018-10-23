@@ -1,7 +1,7 @@
 package Pandemic.Table;
 
 import Pandemic.Exceptions.UnnecessaryAction;
-import Pandemic.Virus;
+import Pandemic.Core.Virus;
 
 import java.io.Serializable;
 import java.util.*;

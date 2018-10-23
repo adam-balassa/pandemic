@@ -1,4 +1,4 @@
-package Pandemic;
+package Pandemic.Core;
 
 import java.io.Serializable;
 

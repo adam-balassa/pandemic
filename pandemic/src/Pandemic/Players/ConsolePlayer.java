@@ -5,16 +5,16 @@ import Pandemic.Cards.CityCard;
 import Pandemic.Cards.EventCard;
 import Pandemic.Characters.Character;
 import Pandemic.Exceptions.*;
-import Pandemic.IGame;
+import Pandemic.Core.IGame;
 import Pandemic.Table.Field;
-import Pandemic.Virus;
+import Pandemic.Core.Virus;
 
 import java.io.*;
 import java.util.*;
 
 public class ConsolePlayer extends Player implements Serializable  {
-    private BufferedReader inputStreamReader;
-    private PrintWriter outputStreamWriter;
+    transient private BufferedReader inputStreamReader;
+    transient private PrintWriter outputStreamWriter;
 
     public ConsolePlayer(IGame g, InputStream is, PrintStream os) {
         super(g);
@@ -163,7 +163,7 @@ public class ConsolePlayer extends Player implements Serializable  {
                     break;
                 case TABLE:
                     for(Field field: game.getFields().values()){
-                        StringBuffer str = new StringBuffer();
+                        StringBuilder str = new StringBuilder();
                         str.append(field.getName() + (field.hasStation() ? "*" : "") + "\t\t");
                         for(Map.Entry<Virus, Integer> pair: field.getInfection().entrySet())
                             if(pair.getValue() > 0) str.append("\t" + pair.getValue() + " " + pair.getKey().getName());
@@ -289,9 +289,13 @@ public class ConsolePlayer extends Player implements Serializable  {
             alert("You must drop a card, or play an event.");
             List<String> str = readCommand();
             try{
-                switch (getCommand(str)){
+                Command cmd = getCommand(str);
+                switch (cmd){
+                    case TABLE:
                     case EVENT:
-                        executeCommands(Command.EVENT, str);
+                    case STATUS:
+                    case HELP:
+                        executeCommands(cmd, str);
                         return;
                     case CHOOSE:
                         Card chosen = this.hasCard(str.get(1));
@@ -374,7 +378,6 @@ public class ConsolePlayer extends Player implements Serializable  {
             alert(cannotPerformAction.getMessage());
 
             List<String> newOptions = readCommand();
-
             Character c = game.getCharacter(newOptions.get(0));
             if(c != null) {
                 playEventCard(card, options.setCharacter(c));

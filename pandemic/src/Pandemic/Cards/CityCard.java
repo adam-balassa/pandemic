@@ -2,7 +2,7 @@ package Pandemic.Cards;
 
 import Pandemic.Players.Player;
 import Pandemic.Table.Field;
-import Pandemic.Virus;
+import Pandemic.Core.Virus;
 
 import java.io.Serializable;
 

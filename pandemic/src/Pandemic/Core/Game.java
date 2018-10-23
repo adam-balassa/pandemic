@@ -1,4 +1,4 @@
-package Pandemic;
+package Pandemic.Core;
 
 import Pandemic.Characters.Character;
 import Pandemic.Characters.CharacterType;
@@ -61,14 +61,21 @@ public class Game implements IGame, Serializable{
         players[player].round();
     }
 
-    void setSaver(Saver saver){
-        this.saver = saver;
-    }
-
     private void nextRound(){
+        shallInfect = true;
         save();
         player = player == players.length - 1 ? 0 : player + 1;
         players[player].round();
+    }
+
+    private void construct(Player[] players, Saver<Game> saver){
+        for (int i = 0; i < this.players.length; i++)
+            this.players[i] = players[i].reconstruct(this.players[i]);
+        this.setSaver(saver);
+    }
+
+    void setSaver(Saver<Game> saver){
+        this.saver = saver;
     }
 
     /**
@@ -167,9 +174,6 @@ public class Game implements IGame, Serializable{
     private void draw() throws EndOfGame{
         Card c = this.mainDeck.draw();
         c.draw(players[player]);
-
-        c = this.mainDeck.draw();
-        c.draw(players[player]);
     }
 
     /**********************
@@ -249,8 +253,8 @@ public class Game implements IGame, Serializable{
     @Override
     public void undo() {
         Game loaded = saver.load();
-        loaded.setSaver(saver);
-        loaded.nextRound();
+        loaded.construct(players, saver);
+        players[player].round();
     }
 
 

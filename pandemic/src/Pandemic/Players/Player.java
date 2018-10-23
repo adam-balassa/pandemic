@@ -3,15 +3,15 @@ package Pandemic.Players;
 import Pandemic.Cards.Card;
 import Pandemic.Cards.CityCard;
 import Pandemic.Cards.EventCard;
-import Pandemic.Events;
+import Pandemic.Core.Events;
 import Pandemic.Exceptions.CannotPerformAction;
 import Pandemic.Exceptions.EndOfGame;
 import Pandemic.Exceptions.EndRound;
 import Pandemic.Exceptions.UnnecessaryAction;
-import Pandemic.Hand;
-import Pandemic.IGame;
+import Pandemic.Core.Hand;
+import Pandemic.Core.IGame;
 import Pandemic.Table.Field;
-import Pandemic.Virus;
+import Pandemic.Core.Virus;
 import Pandemic.Characters.Character;
 
 import java.io.Serializable;
@@ -20,12 +20,13 @@ import java.util.List;
 
 public abstract class Player implements Hand, Events, Serializable {
     public Character character;
-
-    protected IGame game;
     protected List<Card> cards;
-    protected Card chosenCard;
-    private int actions = 0;
-    private String name;
+
+
+    transient protected IGame game;
+    transient protected Card chosenCard;
+    transient private int actions = 0;
+    transient private String name;
 
     private static int players = 1;
 
@@ -45,7 +46,7 @@ public abstract class Player implements Hand, Events, Serializable {
     /**
      * Sets players name dynamically
      */
-    protected Player(IGame g, String name, Character c){
+    protected Player(IGame g, String name){
         this(g);
         this.name = name;
     }
@@ -56,6 +57,14 @@ public abstract class Player implements Hand, Events, Serializable {
 
     public void setCharacter(Character c){
         character = c;
+    }
+
+    public Player reconstruct(Player player){
+        cards = player.getCards();
+        character = player.character;
+        actions = 5;
+        chosenCard = null;
+        return this;
     }
 
     /**
@@ -73,7 +82,7 @@ public abstract class Player implements Hand, Events, Serializable {
     }
 
     public void draw(Card c){
-        cards.add(c);
+        this.add(c);
     }
 
     public void finish(){

@@ -2,7 +2,7 @@ package Pandemic.Characters;
 
 import Pandemic.Cards.Card;
 import Pandemic.Exceptions.CannotPerformAction;
-import Pandemic.Hand;
+import Pandemic.Core.Hand;
 import Pandemic.Table.Field;
 
 import java.util.ArrayList;

@@ -1,9 +1,9 @@
 package Pandemic.Characters;
 
 import Pandemic.Exceptions.CannotPerformAction;
-import Pandemic.Hand;
+import Pandemic.Core.Hand;
 import Pandemic.Table.Field;
-import Pandemic.Virus;
+import Pandemic.Core.Virus;
 
 public class Medic extends Character {
     public Medic(Hand h, Field f) {

@@ -4,7 +4,7 @@ import Pandemic.Cards.CityCard;
 import Pandemic.Cards.EventCard;
 import Pandemic.Exceptions.CannotPerformAction;
 import Pandemic.Table.Field;
-import Pandemic.Virus;
+import Pandemic.Core.Virus;
 
 
 public interface Actions {

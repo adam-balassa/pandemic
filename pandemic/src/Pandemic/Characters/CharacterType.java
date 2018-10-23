@@ -1,6 +1,6 @@
 package Pandemic.Characters;
 
-import Pandemic.Hand;
+import Pandemic.Core.Hand;
 import Pandemic.Table.Field;
 
 import java.io.Serializable;
@@ -12,7 +12,7 @@ public enum CharacterType implements Serializable {
             return new Medic(h, f);
         }
     },
-    ContingencyPlanner("ContingencyPlanner", ""){
+    ContingencyPlanner("Contingency Planner", ""){
         public Character createCharacter(Hand h, Field f) {
             return new ContingencyPlanner(h, f);
         }
@@ -27,7 +27,7 @@ public enum CharacterType implements Serializable {
             return new Scientist(h, f);
         }
     },
-    QuarantineSpecialist("QuarantineSpecialist", ""){
+    QuarantineSpecialist("Quarantine Specialist", ""){
         public Character createCharacter(Hand h, Field f) {
             return new QuarantineSpecialist(h, f);
         }
@@ -37,7 +37,7 @@ public enum CharacterType implements Serializable {
             return new Dispatcher(h, f);
         }
     },
-    OperationExpert("OpertionExpert", ""){
+    OperationExpert("Operation Expert", ""){
         public Character createCharacter(Hand h, Field f) {
             return new OperationExpert(h, f);
         }

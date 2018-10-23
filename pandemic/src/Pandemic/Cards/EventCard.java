@@ -1,6 +1,6 @@
 package Pandemic.Cards;
 
-import Pandemic.Events;
+import Pandemic.Core.Events;
 import Pandemic.Exceptions.CannotPerformAction;
 import Pandemic.Exceptions.UnnecessaryAction;
 import Pandemic.Players.Player;
