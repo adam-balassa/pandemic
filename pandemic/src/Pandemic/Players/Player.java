@@ -59,25 +59,25 @@ public abstract class Player implements Hand, Events, Serializable {
         character = c;
     }
 
-    public Player reconstruct(Player player){
-        cards = player.getCards();
-        character = player.character;
-        actions = 5;
+    public void reconstruct(Player previousStatus){
+        cards = previousStatus.cards;
+        character = previousStatus.character;
+        character.setHand(this);
+        actions = 4;
         chosenCard = null;
-        return this;
     }
 
     /**
      * abstract function for initializing a new round
      */
-    public void round(){
-        actions = 5;
+    public void round() throws EndOfGame {
+        actions = 4;
     }
 
     /**
      * Callback for the end of a round
      */
-    public void endRound() {
+    public void endRound() throws EndOfGame {
         game.endRound();
     }
 

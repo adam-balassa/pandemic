@@ -30,7 +30,7 @@ public class ConsolePlayer extends Player implements Serializable  {
     /**
      * Manages reading commands till user has actions
      */
-    private void readCommands(){
+    private void readCommands() throws EndOfGame{
         while(true)
             try{
                 alert("Remaining actions: " + this.getRemainingActions());
@@ -89,7 +89,7 @@ public class ConsolePlayer extends Player implements Serializable  {
                     break;
                 case MOVECHARACTER:
                     Field where = game.getField(commandString.get(1));
-                    Character whom = game.getCharacter(commandString.get(2));
+                    Character whom = this.getCharacter(commandString.get(2));
                     if(where == null) throw new InvalidParameter(commandString.get(1) + " is not a city");
                     if(whom == null) throw new InvalidParameter(commandString.get(2) + " is not a character in game");
                     usedActions += character.move(where, whom);
@@ -108,14 +108,14 @@ public class ConsolePlayer extends Player implements Serializable  {
                 case GIVECARD:
                     CityCard cardToGive = (CityCard)hasCard(game.getField(commandString.get(1)));
                     if(cardToGive == null) throw new InvalidParameter(commandString.get(1) + " is not in yours to give");
-                    Character toWhom = game.getCharacter(commandString.get(2));
+                    Character toWhom = this.getCharacter(commandString.get(2));
                     if(toWhom == null) throw new InvalidParameter(commandString.get(2) + " is not a character in game");
                     usedActions += character.giveCard(toWhom, cardToGive);
                     break;
                 case GETCARD:
                     CityCard cardToGet = (CityCard)hasCard(game.getField(commandString.get(1)));
                     if(cardToGet == null) throw new InvalidParameter(commandString.get(1) + " is not in yours to give");
-                    Character fromWho = game.getCharacter(commandString.get(2));
+                    Character fromWho = this.getCharacter(commandString.get(2));
                     if(fromWho == null) throw new InvalidParameter(commandString.get(2) + " is not a character in game");
                     usedActions += fromWho.giveCard(this.character, cardToGet);
                 case DRAWEVENT:
@@ -230,6 +230,13 @@ public class ConsolePlayer extends Player implements Serializable  {
             chooseCard();
         }
     }
+    
+    private Character getCharacter(String name){
+        Player[] players = game.getPlayers();
+        for(Player p: players)
+            if(p.character.getName().equals(name)) return p.character;
+        return null;
+    }
 
 
     /*******************************
@@ -256,14 +263,14 @@ public class ConsolePlayer extends Player implements Serializable  {
      ****** BASIC OVERLOADS *******
      ******************************/
     @Override
-    public void round() {
+    public void round() throws EndOfGame {
         super.round();
         alert("New round started for " + this.getName());
         readCommands();
     }
 
     @Override
-    public void endRound() {
+    public void endRound() throws EndOfGame {
         alert("Round ended for " + getName());
         super.endRound();
     }
@@ -364,6 +371,12 @@ public class ConsolePlayer extends Player implements Serializable  {
     }
 
     @Override
+    public void epidemic() throws EndOfGame {
+        alert("Epidemic!!!");
+        super.epidemic();
+    }
+
+    @Override
     public void playEvent(EventCard c) throws CannotPerformAction{
         alert(c.getDescription());
         playEventCard(c, new EventCard.EventOptions.Builder().setPlayer(this));
@@ -378,7 +391,7 @@ public class ConsolePlayer extends Player implements Serializable  {
             alert(cannotPerformAction.getMessage());
 
             List<String> newOptions = readCommand();
-            Character c = game.getCharacter(newOptions.get(0));
+            Character c = this.getCharacter(newOptions.get(0));
             if(c != null) {
                 playEventCard(card, options.setCharacter(c));
                 return;

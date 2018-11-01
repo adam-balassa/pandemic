@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="500.0" minWidth="600.0" style="-fx-background-image: url(file:res/cover.jpg); -fx-background-size: cover; -fx-background-position: center;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <VBox maxHeight="500.0" maxWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox maxHeight="500.0" maxWidth="600.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <AnchorPane fx:id="titleHolder" prefHeight="200.0" style="-fx-background-image: url(&quot;file:res/title.png&quot;); -fx-background-size: contain; -fx-background-repeat: no-repeat no-repeat; -fx-background-position: center center;" />
+                  <VBox alignment="CENTER" prefWidth="600.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="97.0" prefWidth="600.0">
+                           <children>
+                              <MenuButton fx:id="numOfPlayers" mnemonicParsing="false" prefWidth="200.0" text="Select number of players....">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#numOfPlayersChangedTo2" text="2" />
+                                    <MenuItem mnemonicParsing="false" onAction="#numOfPlayersChangedTo3" text="3" />
+                                    <MenuItem mnemonicParsing="false" onAction="#numOfPlayersChangedTo4" text="4" />
+                                 </items>
+                              </MenuButton>
+                              <AnchorPane prefHeight="76.0" prefWidth="420.0" VBox.vgrow="NEVER">
+                                 <children>
+                                    <Slider fx:id="difficultySlider" blockIncrement="1.0" layoutX="261.0" layoutY="19.0" majorTickUnit="1.0" max="6.0" min="4.0" minorTickCount="0" onDragDetected="#setDifficulty" prefHeight="23.0" prefWidth="133.0" showTickMarks="true" snapToTicks="true" value="4.0" AnchorPane.rightAnchor="206.0" AnchorPane.topAnchor="19.0" />
+                                    <Label layoutX="184.0" layoutY="22.0" text="Difficulty" textFill="WHITE" />
+                                    <Label layoutX="255.0" layoutY="41.0" text="Easy" textFill="WHITE" />
+                                    <Label layoutX="308.0" layoutY="41.0" text="Normal" textFill="WHITE" />
+                                    <Label layoutX="374.0" layoutY="41.0" text="Hard" textFill="WHITE" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" top="20.0" />
+                           </padding>
+                        </VBox>
+                        <HBox alignment="CENTER" minHeight="12.0" prefHeight="12.0" spacing="50.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <RadioButton fx:id="consoleApplication" mnemonicParsing="false" selected="true" text="Console Application" textFill="WHITE">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="applicationType" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="graphicsApplication" mnemonicParsing="false" text="Graphics Application" textFill="WHITE" toggleGroup="$applicationType" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="42.0" spacing="50.0">
+                           <children>
+                              <RadioButton fx:id="newButton" mnemonicParsing="false" selected="true" text="New" textFill="WHITE">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="gameMode" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="loadButton" mnemonicParsing="false" text="Load" textFill="WHITE" toggleGroup="$gameMode" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="60.0" prefWidth="600.0" spacing="20.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#setUpGame" prefHeight="42.0" prefWidth="200.0" style="-fx-font-color: red;" text="Start">
+                                 <font>
+                                    <Font name="Rockwell" size="19.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

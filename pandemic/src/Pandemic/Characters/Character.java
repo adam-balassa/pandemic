@@ -19,12 +19,15 @@ abstract public class Character implements Actions, Serializable {
     protected Hand hand;
 
     protected Character(CharacterType c, Hand h, Field f){
+        this.setHand(h);
         character = c;
-        hand = h;
         field = f;
         field.step(this);
     }
 
+    public void setHand(Hand h){
+        hand = h;
+    }
     @Override
     public int move(Field f) throws CannotPerformAction{
         if(field.hasNeighbour(f)){

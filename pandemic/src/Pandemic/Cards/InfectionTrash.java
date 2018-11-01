@@ -22,4 +22,6 @@ public class InfectionTrash extends Deck {
         }
     }
 
+    public void empty(){ deck.clear(); }
+
 }

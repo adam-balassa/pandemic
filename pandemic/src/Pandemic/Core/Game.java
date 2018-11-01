@@ -25,22 +25,22 @@ public class Game implements IGame, Serializable{
     private int player;
     private boolean shallInfect;
 
-    transient private Saver<Game> saver;
+    transient private Saver saver;
 
-    Game(){
+    Game(Saver saver){
         player = 0;
         breakOuts = 0;
         infectionStatus = 1;
         shallInfect = true;
         this.antidotes = new HashSet<>();
+        this.saver = saver;
     }
 
 
     /*******************************
      **** GAME INITIALIZATION *****
      ******************************/
-    void start(Player[] players, int epidemicCards){
-        this.players = players;
+    void initialize(int epidemicCards){
         table = new Table();
         Field atlanta = table.getField("Atlanta");
 
@@ -57,25 +57,44 @@ public class Game implements IGame, Serializable{
 
         createMainDeck(epidemicCards);
         setInfection();
-        save();
+    }
+
+    void start(){
+        while(true){
+            try{
+                shallInfect = true;
+                save();
+                this.nextRound();
+                player = player == players.length - 1 ? 0 : player + 1;
+            }
+            catch(EndOfGame endOfGame){
+                endGame(endOfGame.getMessage());
+            }
+        }
+    }
+
+    void setPlayers(Player[] players){
+        this.players = players;
+    }
+
+    private void nextRound() throws EndOfGame{
         players[player].round();
     }
 
-    private void nextRound(){
-        shallInfect = true;
-        save();
-        player = player == players.length - 1 ? 0 : player + 1;
-        players[player].round();
-    }
+    public void reconstruct(Game previousStatus){
+        table = previousStatus.table;
+        mainDeck = previousStatus.mainDeck;
+        infectionDeck = previousStatus.infectionDeck;
+        mainTrash = previousStatus.mainTrash;
+        infectionTrash = previousStatus.infectionTrash;
+        antidotes = previousStatus.antidotes;
+        for(int i = 0; i < players.length; i++)
+            players[i].reconstruct(previousStatus.players[i]);
 
-    private void construct(Player[] players, Saver<Game> saver){
-        for (int i = 0; i < this.players.length; i++)
-            this.players[i] = players[i].reconstruct(this.players[i]);
-        this.setSaver(saver);
-    }
-
-    void setSaver(Saver<Game> saver){
-        this.saver = saver;
+        infectionStatus = previousStatus.infectionStatus;
+        breakOuts = previousStatus.breakOuts;
+        player = previousStatus.player;
+        shallInfect = previousStatus.shallInfect;
     }
 
     /**
@@ -161,19 +180,21 @@ public class Game implements IGame, Serializable{
      ******************************/
     private void infect(int amount)throws EndOfGame{
         int breakOuts = 0;
-        try {
-            CityCard infection = (CityCard) infectionDeck.draw();
-            Field city = infection.getCity();
-            for (int i = 0; i < amount; i++) breakOuts = city.infect();
-            infectionTrash.add(infection);
-
-        } catch (EndOfGame endOfGame) { }
+        CityCard infection = (CityCard) infectionDeck.draw();
+        Field city = infection.getCity();
+        for (int i = 0; i < amount; i++) breakOuts = city.infect();
+        infectionTrash.add(infection);
         addBreakOuts(breakOuts);
     }
 
     private void draw() throws EndOfGame{
         Card c = this.mainDeck.draw();
         c.draw(players[player]);
+    }
+
+    public void addBreakOuts(int breakOuts) throws EndOfGame {
+        this.breakOuts += breakOuts;
+        if(breakOuts > 7) throw new EndOfGame("Too many breakouts");
     }
 
     /**********************
@@ -193,41 +214,24 @@ public class Game implements IGame, Serializable{
     }
 
     @Override
-    public void endRound() {
-        try{
-            draw();
-            draw();
+    public void endRound() throws EndOfGame{
+        draw();
+        draw();
 
-            players[player].finish();
+        players[player].finish();
 
+        if(shallInfect){
             int numToInfect = infectionStatus <= 3 ? 2 : infectionStatus <= 5 ? 3 : 4;
             for (int i = 0; i < numToInfect; i++) {
                 infect(1);
             }
-            nextRound();
-        }catch (EndOfGame e){
-            endGame(e.getMessage());
         }
-    }
-
-    @Override
-    public Character getCharacter(String name) {
-        for (Player p : players) {
-            if(p.character.equals(name)) return p.character;
-        }
-        return null;
     }
 
     @Override
     public void createAntidote(Virus color) throws UnnecessaryAction {
         if(!antidotes.add(color))
             throw new UnnecessaryAction("Antidote is already made");
-    }
-
-    @Override
-    public void addBreakOuts(int breakOuts) throws EndOfGame {
-        this.breakOuts += breakOuts;
-        if(breakOuts > 7) throw new EndOfGame("Too many breakouts");
     }
 
     @Override
@@ -252,9 +256,23 @@ public class Game implements IGame, Serializable{
 
     @Override
     public void undo() {
-        Game loaded = saver.load();
-        loaded.construct(players, saver);
-        players[player].round();
+        Game previousStatus = saver.load();
+        this.reconstruct(previousStatus);
+    }
+
+    @Override
+    public Player[] getPlayers() {
+        return players;
+    }
+
+    @Override
+    public int getInfectionStatus() {
+        return infectionStatus;
+    }
+
+    @Override
+    public int getBreakOuts() {
+        return breakOuts;
     }
 
 
@@ -295,6 +313,7 @@ public class Game implements IGame, Serializable{
         infectLastCity();
         infectionStatus++;
         infectionDeck.concat(infectionTrash);
+        infectionTrash.empty();
     }
 
     private void infectLastCity() throws EndOfGame{
@@ -305,5 +324,9 @@ public class Game implements IGame, Serializable{
         int breakOuts = 0;
         for (int i = 0; i < 3; i++) breakOuts += city.infect();
         addBreakOuts(breakOuts);
+    }
+
+    int getNumberOfPlayers(){
+        return players.length;
     }
 }
