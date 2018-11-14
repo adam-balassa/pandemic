@@ -2,7 +2,6 @@ package Pandemic.Core;
 
 import Pandemic.Cards.Card;
 import Pandemic.Cards.EventCard;
-import Pandemic.Characters.Character;
 import Pandemic.Exceptions.EndOfGame;
 import Pandemic.Exceptions.UnnecessaryAction;
 import Pandemic.Players.Player;
@@ -25,4 +24,5 @@ public interface IGame extends Events {
     Player[] getPlayers();
     int getInfectionStatus();
     int getBreakOuts();
+    public Player getCurrentPlayer();
 }

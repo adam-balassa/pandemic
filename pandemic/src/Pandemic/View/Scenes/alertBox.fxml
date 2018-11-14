@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane fx:id="main">
+      </BorderPane>
+      <StackPane fx:id="alertBox" prefHeight="150.0" prefWidth="200.0" visible="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+         <children>
+            <StackPane maxHeight="250.0" maxWidth="450.0" style="-fx-border-radius: 20px;">
+               <children>
+                  <TitledPane fx:id="alertBoxTitle" alignment="CENTER" collapsible="false" contentDisplay="CENTER" prefWidth="200.0" style="-fx-border-radius: 20;" text="Alert box">
+                     <content>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0" style="-: 20px;">
+                           <bottom>
+                              <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                <items>
+                                    <AnchorPane prefHeight="30.0" prefWidth="431.0">
+                                       <children>
+                                        <Button fx:id="alertBoxButton" mnemonicParsing="false" onAction="#alertBoxClosed" text="OK" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0" />
+                                       </children>
+                                    </AnchorPane>
+                                </items>
+                                 <BorderPane.margin>
+                                    <Insets left="1.0" right="1.0" top="1.0" />
+                                 </BorderPane.margin>
+                              </ToolBar>
+                           </bottom>
+                           <padding>
+                              <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                           </padding>
+                           <center>
+                              <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Label fx:id="alertBoxText" prefHeight="67.0" prefWidth="452.0" text="Label" wrapText="true">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                       </padding>
+                                    </Label>
+                                    <Separator prefWidth="200.0" />
+                                    <Label fx:id="alertBoxNote" prefHeight="77.0" prefWidth="448.0" text="lqknewjféowqrijfoéiewjrq pfijewrqpin uhnfpifejhfoioqwhef oiuqwrh foiuqewrhf peiwr f" wrapText="true">
+                                       <padding>
+                                          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                       </padding>
+                                    </Label>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                                 </padding>
+                              </VBox>
+                           </center>
+                        </BorderPane>
+                     </content>
+                     <StackPane.margin>
+                        <Insets />
+                     </StackPane.margin>
+                  </TitledPane>
+               </children>
+            </StackPane>
+         </children>
+      </StackPane>
+   </children>
+</StackPane>

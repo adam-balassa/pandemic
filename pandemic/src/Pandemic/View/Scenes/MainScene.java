@@ -1,12 +1,17 @@
 package Pandemic.View.Scenes;
 
+import Pandemic.View.Components.PandemicButton;
 import Pandemic.View.PandemicScene;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.control.*;
 import Pandemic.Core.Pandemic;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+
+import java.awt.event.MouseEvent;
 
 public class MainScene extends PandemicScene {
     @FXML private ToggleGroup applicationType;
@@ -19,13 +24,15 @@ public class MainScene extends PandemicScene {
     @FXML private Slider difficultySlider;
     @FXML private Pane titleHolder;
 
+    @FXML private PandemicButton start;
+
 
     @FXML private MenuButton numOfPlayers;
 
     private Pandemic game;
     private int difficulty = 3;
 
-    private int numberOfPlayers = 2;
+    private int numberOfPlayers = 4;
 
     public MainScene(Pandemic game){
         super("MainScene.fxml");
@@ -37,9 +44,11 @@ public class MainScene extends PandemicScene {
         graphicsApplication.setUserData(ApplicationTypes.GRAPHICS);
         newButton.setUserData(GameModes.NEW);
         loadButton.setUserData(GameModes.LOAD);
+        start.setText("Start");
+        start.setOnAction(this::setUpGame);
     }
 
-    @FXML private void setUpGame(){
+    @FXML private void setUpGame(ActionEvent m){
         if(applicationType.getSelectedToggle().getUserData() == ApplicationTypes.CONSOLE){
             if(gameMode.getSelectedToggle().getUserData() == GameModes.NEW)
                 game.startConsoleApplication(numberOfPlayers, difficulty);
@@ -72,10 +81,10 @@ public class MainScene extends PandemicScene {
 
 
     private enum GameModes{
-        NEW, LOAD;
+        NEW, LOAD
     }
 
     private enum ApplicationTypes{
-        CONSOLE, GRAPHICS;
+        CONSOLE, GRAPHICS
     }
 }

@@ -3,14 +3,12 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import Pandemic.View.Components.*?>
 
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="500.0" minWidth="600.0" style="-fx-background-image: url(file:res/cover.jpg); -fx-background-size: cover; -fx-background-position: center;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="500.0" minWidth="600.0" style="-fx-background-image: url(file:res/cover.jpg); -fx-background-position: center;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <VBox maxHeight="500.0" maxWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -64,11 +62,8 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="60.0" prefWidth="600.0" spacing="20.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#setUpGame" prefHeight="42.0" prefWidth="200.0" style="-fx-font-color: red;" text="Start">
-                                 <font>
-                                    <Font name="Rockwell" size="19.0" />
-                                 </font>
-                              </Button>
+                              <PandemicButton fx:id="start">
+                              </PandemicButton>
                            </children>
                         </HBox>
                      </children>

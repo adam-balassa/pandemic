@@ -68,7 +68,7 @@ public class Game implements IGame, Serializable{
                 player = player == players.length - 1 ? 0 : player + 1;
             }
             catch(EndOfGame endOfGame){
-                endGame(endOfGame.getMessage());
+                endGame();
             }
         }
     }
@@ -110,7 +110,7 @@ public class Game implements IGame, Serializable{
         dealCards(cards);
 
         int sizeOfMidDeck = cards.size() / epidemicCards;
-        List<Card> subDeck = null;
+        List<Card> subDeck;
 
         for (int i = 0; i < epidemicCards; i++) {
             subDeck = cards.subList(i * sizeOfMidDeck, (i + 1) * sizeOfMidDeck);
@@ -132,7 +132,7 @@ public class Game implements IGame, Serializable{
 
     /**
      * randomly selects characters, and associates them to players
-     * @param atlanta
+     * @param atlanta must be passed to place the characters
      */
     private void createCharacters(Field atlanta){
         List<CharacterType> characterTypes = Arrays.asList(CharacterType.values());
@@ -163,9 +163,8 @@ public class Game implements IGame, Serializable{
 
     /**
      * Called when players lost
-     * @param e
      */
-    private void endGame(String e){
+    private void endGame(){
         System.out.println("End of game");
         System.exit(0);
     }
@@ -184,6 +183,7 @@ public class Game implements IGame, Serializable{
         Field city = infection.getCity();
         for (int i = 0; i < amount; i++) breakOuts = city.infect();
         infectionTrash.add(infection);
+        players[player].showInfection(infection);
         addBreakOuts(breakOuts);
     }
 
@@ -192,7 +192,7 @@ public class Game implements IGame, Serializable{
         c.draw(players[player]);
     }
 
-    public void addBreakOuts(int breakOuts) throws EndOfGame {
+    private void addBreakOuts(int breakOuts) throws EndOfGame {
         this.breakOuts += breakOuts;
         if(breakOuts > 7) throw new EndOfGame("Too many breakouts");
     }
@@ -274,6 +274,9 @@ public class Game implements IGame, Serializable{
     public int getBreakOuts() {
         return breakOuts;
     }
+
+    @Override
+    public Player getCurrentPlayer(){ return players[player]; }
 
 
     /**********************

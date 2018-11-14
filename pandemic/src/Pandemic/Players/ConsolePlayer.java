@@ -27,9 +27,6 @@ public class ConsolePlayer extends Player implements Serializable  {
      ***** USER INTERACTION *****
      ******************************/
 
-    /**
-     * Manages reading commands till user has actions
-     */
     private void readCommands() throws EndOfGame{
         while(true)
             try{
@@ -45,10 +42,6 @@ public class ConsolePlayer extends Player implements Serializable  {
             }
     }
 
-    /**
-     * The only function that reads user input
-     * @returns the command formatted to a List
-     */
     private List<String> readCommand(){
         try {
             String str = inputStreamReader.readLine();
@@ -70,14 +63,6 @@ public class ConsolePlayer extends Player implements Serializable  {
         return null;
     }
 
-    /**
-     * Gives meaning to each command
-     * Manages to translate commands into character actions, and manages errors
-     * @param command
-     * @param commandString a formatted list of the users command string
-     * @throws InvalidParameter when the command was correct, but was given uninterpretable parameters
-     * @throws EndRound
-     */
     private void executeCommands(Command command, List<String> commandString) throws InvalidCommand, EndRound {
         int usedActions = 0;
         try{
@@ -160,6 +145,9 @@ public class ConsolePlayer extends Player implements Serializable  {
                     alert("Your cards are ");
                     for (Card c: this.cards)
                         alert("\t" + c.getName());
+
+                    alert(game.getBreakOuts() + " breakouts");
+                    alert("Infection status: " + game.getInfectionStatus());
                     break;
                 case TABLE:
                     for(Field field: game.getFields().values()){
@@ -192,12 +180,6 @@ public class ConsolePlayer extends Player implements Serializable  {
         useAction(usedActions);
     }
 
-    /**
-     * Translates the first element of a command list to a Command Enumeration
-     * @param commandString
-     * @return
-     * @throws InvalidCommand
-     */
     private Command getCommand(List<String> commandString) throws InvalidCommand{
         boolean found = false;
         for (Command command : Command.values()) {
@@ -211,9 +193,6 @@ public class ConsolePlayer extends Player implements Serializable  {
         throw new InvalidCommand("The command you typed is syntactically wrong");
     }
 
-    /**
-     * Called when an ambiguous action error occured, makes the user to specify their command
-     */
     private void chooseCard(){
         alert("Choose one from the following cards: ");
         showCards();
@@ -270,6 +249,11 @@ public class ConsolePlayer extends Player implements Serializable  {
     }
 
     @Override
+    public void showInfection(CityCard card) {
+        alert(card.getName() + " got infected");
+    }
+
+    @Override
     public void endRound() throws EndOfGame {
         alert("Round ended for " + getName());
         super.endRound();
@@ -306,6 +290,8 @@ public class ConsolePlayer extends Player implements Serializable  {
                         return;
                     case CHOOSE:
                         Card chosen = this.hasCard(str.get(1));
+                        if(chosen == null)
+                            throw new CannotPerformAction("Player doesn't have the " + str.get(1) + " card");
                         this.drop(chosen);
                         return;
                     default: break;
@@ -330,7 +316,7 @@ public class ConsolePlayer extends Player implements Serializable  {
     public List<CityCard> forecast() {
         List<CityCard> cards = game.forecast();
         List<CityCard> newOrder = new ArrayList<>();
-        List<String> cmd = null;
+        List<String> cmd;
         while(cards.size() > 1){
             alert("Select the next card in the order");
             showCards(cards);
@@ -352,8 +338,7 @@ public class ConsolePlayer extends Player implements Serializable  {
     @Override
     public List<CityCard> getTrash() {
         List<CityCard> cards = game.getTrash();
-        List<String> cmd = null;
-        Card chosen = null;
+        List<String> cmd;
         while(true){
             alert("Select the card to discard");
             showCards(cards);
@@ -377,33 +362,47 @@ public class ConsolePlayer extends Player implements Serializable  {
     }
 
     @Override
-    public void playEvent(EventCard c) throws CannotPerformAction{
+    public void playEvent(EventCard c){
         alert(c.getDescription());
         playEventCard(c, new EventCard.EventOptions.Builder().setPlayer(this));
     }
 
-    private void playEventCard(EventCard card, EventCard.EventOptions.Builder options) throws CannotPerformAction{
-        try {
-            card.play(options.build());
-            this.drop(card);
-        } catch (CannotPerformAction cannotPerformAction) {
-            alert("Please specify this event");
-            alert(cannotPerformAction.getMessage());
-
-            List<String> newOptions = readCommand();
-            Character c = this.getCharacter(newOptions.get(0));
-            if(c != null) {
-                playEventCard(card, options.setCharacter(c));
+    private void playEventCard(EventCard card, EventCard.EventOptions.Builder options){
+        while(true){
+            try {
+                card.play(options.build());
+                this.drop(card);
                 return;
-            }
+            } catch (CannotPerformAction cannotPerformAction) {
+                alert("Please specify this event");
+                alert(cannotPerformAction.getMessage());
 
-            Field f = game.getField(newOptions.get(0));
-            if(f != null) {
-                playEventCard(card, options.setField(f));
-                return;
+                List<String> newOptions = readCommand();
+                try{
+                    if(getCommand(newOptions) != Command.CHOOSE)
+                        throw new InvalidCommand("Please use the choose command");
+                    Character c = this.getCharacter(newOptions.get(1));
+                    if(c != null) {
+                        options.setCharacter(c);
+                        continue;
+                    }
+
+                    Field f = game.getField(newOptions.get(1));
+                    if(f != null) {
+                        options.setField(f);
+                        continue;
+                    }
+
+                    throw new InvalidCommand("Invalid choice");
+                }
+                catch(InvalidCommand e){
+                    alert(e.getMessage());
+                }
             }
-            throw cannotPerformAction;
         }
+
+
+
     }
 
 

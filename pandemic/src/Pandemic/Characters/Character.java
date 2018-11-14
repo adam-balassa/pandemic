@@ -134,7 +134,7 @@ abstract public class Character implements Actions, Serializable {
     }
 
     protected Collection<Card> similarCards(int number){
-        HashMap<Virus, Collection<Card>> colors = new HashMap<Virus, Collection<Card>>();
+        HashMap<Virus, Collection<Card>> colors = new HashMap<>();
 
         colors.put(Virus.BLACK, new ArrayList<>(number));
         colors.put(Virus.RED, new ArrayList<>(number));

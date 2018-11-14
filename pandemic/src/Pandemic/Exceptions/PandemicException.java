@@ -9,7 +9,7 @@ import java.util.List;
 abstract public class PandemicException extends Exception {
     private static List<PandemicException> errors;
     private static FileOutputStream errorLog;
-    {
+    static {
         try {
             errorLog = new FileOutputStream(new File("errorlog.txt"));
             errors = new ArrayList<>();

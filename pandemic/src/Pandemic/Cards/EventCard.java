@@ -1,11 +1,15 @@
 package Pandemic.Cards;
 
 import Pandemic.Core.Events;
+import Pandemic.Core.Virus;
 import Pandemic.Exceptions.CannotPerformAction;
 import Pandemic.Exceptions.UnnecessaryAction;
 import Pandemic.Players.Player;
 import Pandemic.Table.Field;
 import Pandemic.Characters.Character;
+import Pandemic.View.Components.CardComponent;
+import Pandemic.View.Components.CityCardComponent;
+import javafx.geometry.Point2D;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -33,6 +37,11 @@ public class EventCard extends Card implements Serializable {
 
     @Override
     boolean isEvent(){ return true; }
+
+    @Override
+    public CardComponent getDrawer() {
+        return new CityCardComponent(new CityCard(new Field("Atlanta", Virus.BLUE, new Field.Coordinates(0, 0)), 10000));
+    }
 
     public enum EventTypes{
         FORECAST("Forecast"){
@@ -125,7 +134,7 @@ public class EventCard extends Card implements Serializable {
         Events player;
         Field field;
         Character character;
-        public EventOptions(Events e, Field f, Character c){
+        private EventOptions(Events e, Field f, Character c){
             player = e;
             field = f;
             character = c;

@@ -3,6 +3,7 @@ package Pandemic.Cards;
 import Pandemic.Exceptions.EndOfGame;
 import Pandemic.Players.Player;
 import Pandemic.Core.Virus;
+import Pandemic.View.Components.CardComponent;
 
 import java.io.Serializable;
 
@@ -24,4 +25,6 @@ abstract public class Card implements Serializable {
     boolean isEvent(){ return false; }
 
     public Virus getColor(){ return null; }
+
+    abstract public CardComponent getDrawer();
 }

@@ -1,1 +1,2 @@
-17:55:30	CannotPerformAction	You must drop a card
+18:18:48	CannotPerformAction	Miafasz van
+18:18:50	CannotPerformAction	Miafasz van

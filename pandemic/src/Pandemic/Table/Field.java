@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.*;
 
 import Pandemic.Characters.Character;
+import javafx.geometry.Point2D;
 
 public class Field implements Serializable {
     private final String name;
@@ -17,10 +18,12 @@ public class Field implements Serializable {
     private List<Virus> infection;
     private List<Field> neighbours;
     private Virus color;
+    private Coordinates position;
 
-    public Field(String name, Virus color){
+    public Field(String name, Virus color, Coordinates pos){
         this.name = name;
         this.color = color;
+        this.position = pos;
         brokeOut = false;
         station = false;
         quarantine = false;
@@ -35,7 +38,7 @@ public class Field implements Serializable {
         return this;
     }
 
-    void connectToMe(Field field){
+    private void connectToMe(Field field){
         neighbours.add(field);
     }
 
@@ -48,16 +51,37 @@ public class Field implements Serializable {
     }
 
     public int infect(){
-        return infect(this.color);
+        int breakOuts = infect(this.color);
+        this.endPhase();
+        return breakOuts;
     }
 
-    public int infect(Virus v){
+    private int infect(Virus v){
+        if(this.quarantine) return 0;
+
         int num = count(v);
         if(num == 3)
             return breakOut(v);
         infection.add(v);
 
         return 0;
+    }
+
+    private int breakOut(Virus v){
+        if(this.brokeOut) return 0;
+        this.brokeOut = true;
+        int outBreaks = 1;
+        for (Field f : neighbours) {
+            outBreaks += f.infect(v);
+        }
+        return outBreaks;
+    }
+
+    private void endPhase(){
+        if(!this.brokeOut) return;
+        this.brokeOut = false;
+        for(Field neighbour : neighbours)
+            neighbour.endPhase();
     }
 
     public void clear() throws UnnecessaryAction {
@@ -97,16 +121,6 @@ public class Field implements Serializable {
         this.quarantine = false;
     }
 
-    private int breakOut(Virus v){
-        if(this.brokeOut) return 0;
-        this.brokeOut = true;
-        int outBreaks = 0;
-        for (Field f : neighbours) {
-            outBreaks += f.infect(v);
-        }
-        return outBreaks;
-    }
-
     private int count(Virus v){
         int i = 0;
         for (Virus virus : infection)
@@ -114,7 +128,9 @@ public class Field implements Serializable {
         return i;
     }
 
-    public String getName(){ return name; }
+    public String getName(){
+        return name;
+    }
 
     public boolean hasNeighbour(Field f){
         for (Field field: this.neighbours) {
@@ -142,5 +158,18 @@ public class Field implements Serializable {
         infections.put(Virus.BLACK, this.count(Virus.BLACK));
         infections.put(Virus.YELLOW, this.count(Virus.YELLOW));
         return infections;
+    }
+
+    public Coordinates getPosition(){
+        return this.position;
+    }
+
+    public static class Coordinates implements Serializable{
+        public double x;
+        public double y;
+        public Coordinates(double x, double y){
+            this.x = x;
+            this.y = y;
+        }
     }
 }

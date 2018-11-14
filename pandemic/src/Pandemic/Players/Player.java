@@ -91,6 +91,7 @@ public abstract class Player implements Hand, Events, Serializable {
     }
 
     abstract protected void hasToDrop();
+    abstract public void showInfection(CityCard card);
 
     /**
      * helper functions for a player

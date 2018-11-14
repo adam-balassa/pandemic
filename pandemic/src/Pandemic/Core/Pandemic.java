@@ -44,7 +44,15 @@ public class Pandemic extends Application implements Saver {
     }
 
     public void startGraphicsApplication(int numOfPlayers, int difficulty){
-        window.setScene(new GameScene(this).getScene());
+        window.close();
+        game = new Game(this);
+        players = new Player[numOfPlayers];
+        for(int i = 0; i < players.length; i++)
+            players[i] = new ConsolePlayer(game, System.in, System.out);
+        game.setPlayers(players);
+        game.initialize(difficulty);
+        //game.start();
+        window.setScene(new GameScene(game).getScene());
         window.show();
     }
 
@@ -81,7 +89,7 @@ public class Pandemic extends Application implements Saver {
 
     @Override
     public Game load() {
-        ObjectInputStream is = null;
+        ObjectInputStream is;
         try {
             is = new ObjectInputStream(new FileInputStream(file));
             Game game = (Game)is.readObject();
@@ -90,7 +98,6 @@ public class Pandemic extends Application implements Saver {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("zgkugvkgb\n\n\n");
         return null;
     }
 }

@@ -1,6 +1,5 @@
 package Pandemic.Cards;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -13,16 +12,18 @@ public class MainTrash extends Deck{
 
     public List<EventCard> getEvents(){
         List<EventCard> cards = new ArrayList<>();
-        for(Iterator<Card> i = deck.listIterator(); i.hasNext();){
-            Card card = i.next();
+        for(Card card : deck){
             if(card.isEvent()) cards.add((EventCard) card);
         }
         return cards;
     }
 
     public void drawEvent(EventCard c){
-        for(Iterator<Card> i = deck.listIterator(); true;){
-            if(i.next() == c) i.remove();
+        for(Iterator<Card> i = deck.listIterator(); i.hasNext();){
+            if(i.next() == c) {
+                i.remove();
+                return;
+            }
         }
     }
 

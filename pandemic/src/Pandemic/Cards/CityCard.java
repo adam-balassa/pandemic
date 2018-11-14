@@ -3,12 +3,14 @@ package Pandemic.Cards;
 import Pandemic.Players.Player;
 import Pandemic.Table.Field;
 import Pandemic.Core.Virus;
+import Pandemic.View.Components.CardComponent;
+import Pandemic.View.Components.CityCardComponent;
 
 import java.io.Serializable;
 
 public class CityCard extends Card implements Comparable<CityCard>, Serializable {
-    int population;
-    Field city;
+    private int population;
+    private Field city;
 
     public CityCard(Field f, int p){
         super(f.getName());
@@ -33,5 +35,14 @@ public class CityCard extends Card implements Comparable<CityCard>, Serializable
     @Override
     public Virus getColor() {
         return city.getColor();
+    }
+
+    @Override
+    public CardComponent getDrawer() {
+        return new CityCardComponent(this);
+    }
+
+    public int getPopulation(){
+        return population;
     }
 }

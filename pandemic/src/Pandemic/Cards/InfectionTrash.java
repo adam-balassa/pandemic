@@ -17,8 +17,11 @@ public class InfectionTrash extends Deck {
     }
 
     public void removeCard(Card c){
-        for(Iterator<Card> i = deck.listIterator(); true;){
-            if(i.next() == c) i.remove();
+        for(Iterator<Card> card = deck.listIterator(); true;){
+            if(card.next() == c) {
+                card.remove();
+                return;
+            }
         }
     }
 
