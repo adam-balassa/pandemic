@@ -62,10 +62,7 @@ public class Game implements IGame, Serializable{
     void start(){
         while(true){
             try{
-                shallInfect = true;
-                save();
                 this.nextRound();
-                player = player == players.length - 1 ? 0 : player + 1;
             }
             catch(EndOfGame endOfGame){
                 endGame();
@@ -77,8 +74,11 @@ public class Game implements IGame, Serializable{
         this.players = players;
     }
 
-    private void nextRound() throws EndOfGame{
+    public void nextRound() throws EndOfGame{
+        shallInfect = true;
+        save();
         players[player].round();
+        player = player == players.length - 1 ? 0 : player + 1;
     }
 
     public void reconstruct(Game previousStatus){
@@ -277,6 +277,11 @@ public class Game implements IGame, Serializable{
 
     @Override
     public Player getCurrentPlayer(){ return players[player]; }
+
+    @Override
+    public Set<Virus> getAntidotes() {
+        return antidotes;
+    }
 
 
     /**********************

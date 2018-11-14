@@ -2,31 +2,28 @@ package Pandemic.View.Components;
 
 import Pandemic.Table.Field;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 public class TableComponent extends StackPane{
-    List<Field> fields;
-    List<FieldComponent> fieldComponents;
-    AnchorPane lines;
-    double width = 28;
-    double scale = 37;
+    private List<Field> fields;
+    private List<FieldComponent> fieldComponents;
+    private AnchorPane lines;
+    private double width = 28;
+    private double scale = 37;
+
     public TableComponent(Collection<Field> fields){
         this.fields = new ArrayList<>(fields);
         init();
     }
 
-    public void init(){
+    private void init(){
         this.setMaxWidth(width * scale);
         this.setMinHeight(width * scale / 2);
         this.setMaxHeight(width * scale / 2);
@@ -42,7 +39,7 @@ public class TableComponent extends StackPane{
         this.getChildren().addAll(fieldComponents);
     }
 
-    public void drawConnections(){
+    private void drawConnections(){
         fields.sort((a, b) ->  a.getName().compareTo(b.getName()));
         lines = new AnchorPane();
         //this.setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
@@ -54,7 +51,7 @@ public class TableComponent extends StackPane{
         }
         this.getChildren().add(lines);
     }
-    public void drawConnection(Field a, Field b){
+    private void drawConnection(Field a, Field b){
         Line line = new Line(a.getPosition().x * scale, a.getPosition().y * scale, b.getPosition().x * scale, b.getPosition().y * scale);
         line.setStroke(Color.color(0, 0, 0, 0.3));
         line.setStrokeWidth(2);

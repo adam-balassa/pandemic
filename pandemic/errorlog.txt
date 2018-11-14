@@ -1,2 +1,1 @@
-18:18:48	CannotPerformAction	Miafasz van
-18:18:50	CannotPerformAction	Miafasz van
+23:38:22	EndOfGame	Game over

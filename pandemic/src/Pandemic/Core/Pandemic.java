@@ -1,5 +1,7 @@
 package Pandemic.Core;
+import Pandemic.Exceptions.EndOfGame;
 import Pandemic.Players.ConsolePlayer;
+import Pandemic.Players.GraphicsPlayer;
 import Pandemic.Players.Player;
 import Pandemic.View.Scenes.GameScene;
 import Pandemic.View.Scenes.MainScene;
@@ -47,13 +49,15 @@ public class Pandemic extends Application implements Saver {
         window.close();
         game = new Game(this);
         players = new Player[numOfPlayers];
+        GameScene scene = new GameScene(game);
         for(int i = 0; i < players.length; i++)
-            players[i] = new ConsolePlayer(game, System.in, System.out);
+            players[i] = new GraphicsPlayer(game, scene);
         game.setPlayers(players);
         game.initialize(difficulty);
-        //game.start();
-        window.setScene(new GameScene(game).getScene());
+        scene.init();
+        window.setScene(scene.getScene());
         window.show();
+        try{ game.nextRound(); }catch(EndOfGame e){}
     }
 
     public void loadGraphicsApplication(){

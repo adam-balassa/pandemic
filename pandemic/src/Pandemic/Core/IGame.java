@@ -9,6 +9,7 @@ import Pandemic.Table.Field;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public interface IGame extends Events {
     void drop(Card c);
@@ -24,5 +25,6 @@ public interface IGame extends Events {
     Player[] getPlayers();
     int getInfectionStatus();
     int getBreakOuts();
-    public Player getCurrentPlayer();
+    Player getCurrentPlayer();
+    Set<Virus> getAntidotes();
 }

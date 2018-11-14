@@ -124,9 +124,13 @@ public class ConsolePlayer extends Player implements Serializable  {
                     usedActions += character.antidote();
                     break;
                 case EVENT:
-                    EventCard event = (EventCard) hasCard(commandString.get(1));
-                    if(event == null) throw new InvalidParameter("You don't have a card called" + commandString.get(1));
-                    character.playEvent(event);
+                    try{
+                        EventCard event = (EventCard) hasCard(commandString.get(1));
+                        if(event == null) throw new InvalidParameter("You don't have a card called" + commandString.get(1));
+                        character.playEvent(event);
+                    }catch(Exception e){
+                        throw new CannotPerformAction(hasCard(commandString.get(1)).getName() + " is not an event card");
+                    }
                     break;
                 case HELP:
                     alert(Command.getHelp());

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class FieldComponent extends StackPane implements Refreshable {
+public class FieldComponent extends StackPane {
     private Field field;
 
     private int width = 40;
@@ -34,8 +34,6 @@ public class FieldComponent extends StackPane implements Refreshable {
         refresh();
     }
 
-
-    @Override
     public void refresh() {
         this.getChildren().removeAll();
         this.setMaxWidth(width * scale);

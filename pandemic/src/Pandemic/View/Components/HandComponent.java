@@ -1,22 +1,17 @@
 package Pandemic.View.Components;
 
 import Pandemic.Cards.Card;
-import Pandemic.Core.Hand;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HandComponent extends StackPane implements Refreshable{
+public class HandComponent extends StackPane{
     private List<Card> cards;
     private int width = 500;
     private int height = 300;
@@ -29,10 +24,8 @@ public class HandComponent extends StackPane implements Refreshable{
     public HandComponent(List<Card> cards){
         this.cards = cards;
         this.getChildren().add(content = new StackPane());
-        this.show();
     }
 
-    @Override
     public void refresh(){
         content.setTranslateY(translation * scale);
 
@@ -52,7 +45,7 @@ public class HandComponent extends StackPane implements Refreshable{
 
 
             final double transformAngle = -defaultAngle / 2 + angle * i;
-            final double distance = 40 * scale;
+            final double distance = 55 * scale;
             component.getTransforms().addAll(
                     new Rotate(transformAngle, component.getMinWidth() / 2, component.getMinHeight() * 1.3)
             );
@@ -73,6 +66,10 @@ public class HandComponent extends StackPane implements Refreshable{
         }
 
         content.getChildren().addAll(cardComponents);
+    }
+
+    public void setCards(List<Card> c){
+        this.cards = c;
     }
 
     public void hide(){

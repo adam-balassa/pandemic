@@ -1,63 +1,50 @@
 package Pandemic.View.Scenes;
-
-import Pandemic.Cards.CityCard;
 import Pandemic.Core.Game;
 import Pandemic.Core.IGame;
-import Pandemic.Core.Pandemic;
 import Pandemic.Core.Virus;
-import Pandemic.Exceptions.CannotPerformAction;
+import Pandemic.Exceptions.EndOfGame;
 import Pandemic.Exceptions.PandemicException;
+import Pandemic.Players.GraphicsPlayer;
+import Pandemic.Players.Player;
 import Pandemic.Table.Field;
 import Pandemic.View.Components.*;
 import Pandemic.View.Effect;
 import Pandemic.View.PandemicScene;
 import javafx.animation.*;
-import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.Camera;
 import javafx.scene.Cursor;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TitledPane;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.transform.Rotate;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+import java.util.*;
 
-import java.util.Map;
-import java.util.Stack;
-
-public class GameScene extends PandemicScene {
+public class GameScene extends PandemicScene{
     private IGame game;
 
-    @FXML private StackPane alertBox;
-    @FXML private TitledPane alertBoxTitle;
-    @FXML private Label alertBoxText;
-    @FXML private Label alertBoxNote;
-    @FXML private Button alertBoxButton;
-
     private boolean hidden = false;
-    private PlayerComponent activePlayer;
+    private PlayerComponent activePlayerComponent;
+    private List<PlayerComponent> playerComponents;
+    private GraphicsPlayer activePlayer;
     private int width = 1100;
     private int height = 680;
     private ControllerComponent controller;
     private BorderPane main;
+    private TableComponent table;
     private Pane hideButton;
+    private AlertBoxComponent alertBox;
 
     public GameScene(Game game) {
         this.game = game;
-        this.init();
-
-        scene = new Scene(root);
-        scene.setCamera(new PerspectiveCamera());
     }
 
-    private void init(){
+    public void init(){
         root = new StackPane();
+        ((StackPane)root).setAlignment(Pos.CENTER);
         main = new BorderPane();
 
         Effect.grow(main);
@@ -66,62 +53,18 @@ public class GameScene extends PandemicScene {
         main.setMinWidth(width);
 
         controller = new ControllerComponent();
-        controller.setCurrentPlayer(game.getCurrentPlayer());
 
-
-        AnchorPane center = new AnchorPane();
-        Effect.grow(center);
+        playerComponents = new ArrayList<>();
+        Player[] players = game.getPlayers();
+        for(Player p: players) playerComponents.add(new PlayerComponent((GraphicsPlayer)p));
 
         Map<String, Field> fields = game.getFields();
-        TableComponent board = new TableComponent(fields.values());
-        StackPane boardHolder = new StackPane(board);
-        boardHolder.setAlignment(Pos.CENTER);
-        Effect.grow(boardHolder);
+        table = new TableComponent(fields.values());
 
+        root.getChildren().addAll(main, alertBox = new AlertBoxComponent());
 
-        activePlayer = new PlayerComponent(game.getCurrentPlayer());
-        Effect.grow(activePlayer, false, true, true, true);
-        center.getChildren().addAll(activePlayer);
-
-        PlayerComponent player3 = new PlayerComponent(game.getPlayers()[3]);
-        player3.hide();
-        player3.setRotate(180);
-        Effect.grow(player3, true, true, false, true);
-        center.getChildren().add(player3);
-
-        PlayerComponent player = new PlayerComponent(game.getPlayers()[1]);
-        player.hide();
-        player.setRotate(90);
-        Effect.grow(player, false, false, false, true);
-        center.getChildren().add(player);
-
-        PlayerComponent player2 = new PlayerComponent(game.getPlayers()[2]);
-        player2.hide();
-        player2.setRotate(-90);
-        Effect.grow(player2, false, true, false, false);
-        center.getChildren().add(player2);
-
-        addButton(center);
-        center.getChildren().add(0, boardHolder);
-        main.setCenter(center);
-        main.setBottom(controller);
-
-        root.getChildren().addAll(main);
-    }
-
-    private void alert(PandemicException e, String title){
-        alertBoxTitle.setText(title);
-        alertBoxText.setText(e.getMessage());
-        alertBoxNote.setText(e.getHelp());
-        Effect.fadeIn(alertBox);
-    }
-
-    @FXML private void alertBoxClosed(){
-        Effect.fadeOut(alertBox);
-    }
-
-    @FXML private void alertB(){
-        alert(new CannotPerformAction("You must drop a card"), "Drop a card");
+        scene = new Scene(root);
+        scene.setCamera(new PerspectiveCamera());
     }
 
     public static Color colorOfVirus(Virus v){
@@ -138,7 +81,132 @@ public class GameScene extends PandemicScene {
         return null;
     }
 
-    private void addButton(Pane pane){
+    public void alert(PandemicException e, String t){
+        alertBox.alert(e, t);
+    }
+
+    public void message(String msg){
+        controller.message(msg);
+    }
+
+    public void newRound(GraphicsPlayer player){
+        this.activePlayer = player;
+        for(PlayerComponent p: playerComponents) {
+            if (p.getPlayer() == player) {
+                activePlayerComponent = p;
+            }
+            p.refresh();
+        }
+        controller.refresh(game.getBreakOuts(), game.getInfectionStatus());
+        controller.setPlayer(activePlayer);
+
+        Pane button = drawButton();
+        Pane center = drawPlayers();
+        center.getChildren().add(0, drawTable());
+        center.getChildren().add(button);
+        main.setCenter(center);
+        main.setBottom(controller);
+        this.show();
+    }
+
+    public void endGame(){
+        Stage window = (Stage) this.scene.getWindow();
+        alert(new EndOfGame("Game over"), "Game over");
+        alertBox.getButton().setOnAction(e -> {
+            window.close();
+        });
+    }
+
+    private void hide(){
+        Text t = (Text) hideButton.getChildren().get(1);
+        int length = 250;
+        RotateTransition rt = new RotateTransition(Duration.millis(length), t);
+        TranslateTransition tt = new TranslateTransition(Duration.millis(length), t);
+
+        TranslateTransition tt2 = new TranslateTransition(Duration.millis(length), controller);
+        TranslateTransition tt3 = new TranslateTransition(Duration.millis(length), activePlayerComponent);
+        TranslateTransition tt4 = new TranslateTransition(Duration.millis(length), hideButton);
+        SequentialTransition st = new SequentialTransition(new ParallelTransition(tt2, tt3, rt, tt, tt4));
+
+        rt.setToAngle(180);
+        tt.setToY(3);
+        tt2.setToY(controller.getMinHeight());
+        tt3.setToY(controller.getMinHeight());
+        tt4.setToY(controller.getMinHeight());
+        st.setOnFinished(a -> {
+            main.setBottom(null);
+            activePlayerComponent.hide();
+            PlayerComponent.disable(true);
+            activePlayerComponent.setTranslateY(0);
+            hideButton.setTranslateY(0);
+        });
+
+        st.play();
+    }
+
+    private void show(){
+        Text t = (Text) hideButton.getChildren().get(1);
+        RotateTransition rt = new RotateTransition(Duration.millis(200), t);
+        TranslateTransition tt = new TranslateTransition(Duration.millis(200), t);
+
+        TranslateTransition tt2 = new TranslateTransition(Duration.millis(200), controller);
+        TranslateTransition tt3 = new TranslateTransition(Duration.millis(200), activePlayerComponent);
+        TranslateTransition tt4 = new TranslateTransition(Duration.millis(200), hideButton);
+        SequentialTransition st = new SequentialTransition(new ParallelTransition(tt2, tt3, rt, tt, tt4));
+
+        activePlayerComponent.show();
+        PlayerComponent.disable(false);
+        rt.setToAngle(0);
+        tt.setToY(-3);
+        tt2.setToY(0);
+        tt3.setFromY(controller.getMinHeight());
+        tt3.setToY(0);
+        tt4.setFromY(controller.getMinHeight());
+        tt4.setToY(0);
+        main.setBottom(controller);
+
+        st.play();
+    }
+
+    private AnchorPane drawPlayers(){
+        AnchorPane center = new AnchorPane();
+        Effect.grow(center);
+
+        int aPC = playerComponents.indexOf(activePlayerComponent);
+        int numOfPlayers = playerComponents.size();
+        int j = aPC;
+        List<PlayerComponent> pcs = new ArrayList<>(numOfPlayers);
+
+        do{
+            pcs.add(playerComponents.get(j));
+            if(++j == numOfPlayers) j = 0;
+        } while(j != aPC);
+        playerComponents = pcs;
+
+        for(int i = 0; i < numOfPlayers; i++){
+            PlayerComponent pc = playerComponents.get(i);
+            Effect.grow(pc, i == 2, i != 1, i == 0, i != 3);
+            pc.hide();
+            pc.setRotate(90 * i);
+            pc.setTranslateY((i == 1 || i == 3) ? height / 2 - 220 : 0);
+            pc.setTranslateX((i == 1 || i == 3) ? (i % 4 - 2) * -40 : 0);
+        }
+
+        int[] order = {2, 0, 1, 3};
+        for(int i = 0; i < order.length; i++)
+            if(numOfPlayers > order[i]) center.getChildren().add(playerComponents.get(order[i]));
+
+        return center;
+    }
+
+    private StackPane drawTable(){
+        StackPane boardHolder = new StackPane(table);
+        boardHolder.setAlignment(Pos.CENTER);
+        Effect.grow(boardHolder);
+        return boardHolder;
+    }
+
+    private Pane drawButton(){
         StackPane buttonHolder = new StackPane();
         buttonHolder.setAlignment(Pos.TOP_LEFT);
         hideButton = getButton();
@@ -156,57 +224,7 @@ public class GameScene extends PandemicScene {
         });
 
         buttonHolder.getChildren().add(hideButton);
-        pane.getChildren().add(buttonHolder);
-    }
-
-    private void hide(){
-        Text t = (Text) hideButton.getChildren().get(1);
-        RotateTransition rt = new RotateTransition(Duration.millis(200), t);
-        TranslateTransition tt = new TranslateTransition(Duration.millis(200), t);
-
-        TranslateTransition tt2 = new TranslateTransition(Duration.millis(200), controller);
-        TranslateTransition tt3 = new TranslateTransition(Duration.millis(200), activePlayer);
-        TranslateTransition tt4 = new TranslateTransition(Duration.millis(200), hideButton);
-        SequentialTransition st = new SequentialTransition(new ParallelTransition(tt2, tt3, rt, tt, tt4));
-
-        rt.setToAngle(180);
-        tt.setToY(3);
-        tt2.setToY(controller.getMinHeight());
-        tt3.setToY(controller.getMinHeight());
-        tt4.setToY(controller.getMinHeight());
-        st.setOnFinished(a -> {
-            main.setBottom(null);
-            activePlayer.hide();
-            activePlayer.setMouseTransparent(true);
-            activePlayer.setTranslateY(0);
-            hideButton.setTranslateY(0);
-        });
-
-        st.play();
-    }
-
-    private void show(){
-        Text t = (Text) hideButton.getChildren().get(1);
-        RotateTransition rt = new RotateTransition(Duration.millis(200), t);
-        TranslateTransition tt = new TranslateTransition(Duration.millis(200), t);
-
-        TranslateTransition tt2 = new TranslateTransition(Duration.millis(200), controller);
-        TranslateTransition tt3 = new TranslateTransition(Duration.millis(200), activePlayer);
-        TranslateTransition tt4 = new TranslateTransition(Duration.millis(200), hideButton);
-        SequentialTransition st = new SequentialTransition(new ParallelTransition(tt2, tt3, rt, tt, tt4));
-
-        activePlayer.show();
-        activePlayer.setMouseTransparent(false);
-        rt.setToAngle(0);
-        tt.setToY(-3);
-        tt2.setToY(0);
-        tt3.setFromY(controller.getMinHeight());
-        tt3.setToY(0);
-        tt4.setFromY(controller.getMinHeight());
-        tt4.setToY(0);
-        main.setBottom(controller);
-
-        st.play();
+        return buttonHolder;
     }
 
     private Pane getButton(){
