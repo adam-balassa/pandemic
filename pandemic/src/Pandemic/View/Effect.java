@@ -34,7 +34,7 @@ public class Effect {
         transition.play();
     }
 
-    public static void fadeOut(Parent component){
+    public static Transition fadeOut(Parent component){
         FadeTransition transition = new FadeTransition(Duration.millis(200), component);
         TranslateTransition transition2 = new TranslateTransition(Duration.millis(200), component);
 
@@ -49,9 +49,11 @@ public class Effect {
 
         transition.play();
         transition2.play();
+
+        return transition;
     }
 
-    public static void drawCard(CardComponent card, Scene scene){
+    public static void drawCard(Node card, Scene scene){
         RotateTransition flipping = new RotateTransition(Duration.millis(700), card);
         flipping.setAxis(new Point3D(-100,  0, 0));
         flipping.setFromAngle(-90);

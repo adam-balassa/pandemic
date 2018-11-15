@@ -17,39 +17,24 @@ import javafx.scene.text.FontWeight;
 
 public class CityCardComponent extends CardComponent{
     private CityCard card;
-    private CornerRadii radius = new CornerRadii(10);
-    private int width = 200;
-    private int height = 300;
-    private double scale = 1;
 
     public CityCardComponent(CityCard card){
         super();
         this.card = card;
+        this.color = GameScene.colorOfVirus(card.getColor());
     }
 
     @Override
-    public void setScale(double scale){
-        this.scale = scale;
-        radius = new CornerRadii(10 * scale);
-    }
-
-    public Pane init(){
-        this.setMinWidth(width * scale);
-        this.setMaxWidth(width * scale);
-        this.setMinHeight(height * scale);
-        this.setMaxHeight(height * scale);
+    protected void init(){
+        super.init();
         Stop[] stops = new Stop[]{
-                new Stop(0, GameScene.colorOfVirus(card.getColor())),
+                new Stop(0, color),
                 new Stop(1,  Color.TRANSPARENT)};
 
         this.setBackground(new Background(new BackgroundFill(
                 new LinearGradient(1, 1, 0, 0, true, CycleMethod.NO_CYCLE, stops),
                 radius,
                 null)));
-        this.setPadding(new Insets(20 * scale, 10 * scale, 20 * scale, 10 * scale));
-        this.setEffect(new DropShadow(BlurType.GAUSSIAN, Color.grayRgb(1, 0.2), 7, 0.1, 2, 2));
-        this.setBorder(new Border(new BorderStroke(Color.color(0, 0, 0, 0.1), BorderStrokeStyle.SOLID, radius, BorderWidths.DEFAULT)));
-
 
         BorderPane center = new BorderPane();
         center.setBorder(new Border(new BorderStroke(GameScene.colorOfVirus(card.getColor()), BorderStrokeStyle.SOLID, radius, BorderWidths.DEFAULT)));
@@ -79,7 +64,6 @@ public class CityCardComponent extends CardComponent{
 
         center.setTop(new VBox(textBox, populationBox));
         this.setCenter(center);
-        return this;
     }
 }
 

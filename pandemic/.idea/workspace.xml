@@ -12,35 +12,70 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GraphicsPlayer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Pandemic/Players/GraphicsPlayer.java">
+      <file leaf-file-name="Table.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Pandemic/Table/Table.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+            <state relative-caret-position="329">
+              <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CharacterComponent.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Components/CharacterComponent.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="16" column="15" lean-forward="false" selection-start-line="16" selection-start-column="15" selection-end-line="16" selection-end-column="15" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#GraphicsPlayer#0;class#GraphicsPlayer#0" expanded="false" />
-                <element signature="method#round#0;class#GraphicsPlayer#0" expanded="false" />
-                <element signature="method#hasToDrop#0;class#GraphicsPlayer#0" expanded="false" />
-                <element signature="method#showInfection#0;class#GraphicsPlayer#0" expanded="false" />
-                <element signature="e#896#897#0" expanded="true" />
-                <element signature="e#923#924#0" expanded="true" />
-                <element signature="method#replaceCards#0;class#GraphicsPlayer#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameScene.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Pandemic/Core/Game.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="259">
+              <caret line="55" column="57" lean-forward="false" selection-start-line="55" selection-start-column="57" selection-end-line="55" selection-end-column="57" />
+              <folding>
+                <element signature="method#Game#0;class#Game#0" expanded="false" />
+                <element signature="method#start#0;class#Game#0" expanded="false" />
+                <element signature="method#reconstruct#0;class#Game#0" expanded="false" />
+                <element signature="docComment;method#createMainDeck#0;class#Game#0" expanded="false" />
+                <element signature="method#createMainDeck#0;class#Game#0" expanded="false" />
+                <element signature="docComment;method#dealCards#0;class#Game#0" expanded="false" />
+                <element signature="method#dealCards#0;class#Game#0" expanded="false" />
+                <element signature="method#createCharacters#0;class#Game#0" expanded="false" />
+                <element signature="docComment;method#setInfection#0;class#Game#0" expanded="false" />
+                <element signature="method#setInfection#0;class#Game#0" expanded="false" />
+                <element signature="method#endGame#0;class#Game#0" expanded="false" />
+                <element signature="method#infect#0;class#Game#0" expanded="false" />
+                <element signature="method#draw#0;class#Game#0" expanded="false" />
+                <element signature="method#addBreakOuts#0;class#Game#0" expanded="false" />
+                <element signature="method#isAntidoteMade#0;class#Game#0" expanded="false" />
+                <element signature="method#endRound#0;class#Game#0" expanded="false" />
+                <element signature="method#createAntidote#0;class#Game#0" expanded="false" />
+                <element signature="method#undo#0;class#Game#0" expanded="false" />
+                <element signature="method#forecast#0;class#Game#0" expanded="false" />
+                <element signature="method#replaceCards#0;class#Game#0" expanded="false" />
+                <element signature="method#epidemic#0;class#Game#0" expanded="false" />
+                <element signature="method#infectLastCity#0;class#Game#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameScene.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Scenes/GameScene.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="111" column="25" lean-forward="false" selection-start-line="111" selection-start-column="25" selection-end-line="111" selection-end-column="25" />
+            <state relative-caret-position="344">
+              <caret line="280" column="30" lean-forward="false" selection-start-line="280" selection-start-column="30" selection-end-line="280" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1269#1270#0" expanded="true" />
-                <element signature="e#1301#1302#0" expanded="true" />
-                <element signature="method#init#0;class#GameScene#0" expanded="false" />
+                <element signature="e#1329#1330#0" expanded="true" />
+                <element signature="e#1361#1362#0" expanded="true" />
                 <element signature="method#colorOfVirus#0;class#GameScene#0" expanded="false" />
                 <element signature="method#newRound#0;class#GameScene#0" expanded="false" />
                 <element signature="method#refresh#0;class#GameScene#0" expanded="false" />
@@ -56,117 +91,98 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CharacterType.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Pandemic/Characters/CharacterType.java">
+      <file leaf-file-name="GraphicsPlayer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Pandemic/Players/GraphicsPlayer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="25" column="40" lean-forward="true" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
+            <state relative-caret-position="390">
+              <caret line="50" column="5" lean-forward="false" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
+              <folding>
+                <element signature="method#GraphicsPlayer#0;class#GraphicsPlayer#0" expanded="false" />
+                <element signature="method#round#0;class#GraphicsPlayer#0" expanded="false" />
+                <element signature="method#hasToDrop#0;class#GraphicsPlayer#0" expanded="false" />
+                <element signature="method#showInfection#0;class#GraphicsPlayer#0" expanded="false" />
+                <element signature="method#replaceCards#0;class#GraphicsPlayer#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConsolePlayer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Pandemic/Players/ConsolePlayer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1005">
+              <caret line="131" column="114" lean-forward="false" selection-start-line="131" selection-start-column="114" selection-end-line="131" selection-end-column="114" />
+              <folding>
+                <element signature="method#ConsolePlayer#0;class#ConsolePlayer#0" expanded="false" />
+                <element signature="docComment;method#readCommands#0;class#ConsolePlayer#0" expanded="false" />
+                <element signature="method#readCommands#0;class#ConsolePlayer#0" expanded="false" />
+                <element signature="method#getCommand#0;class#ConsolePlayer#0" expanded="false" />
+                <element signature="method#chooseCard#0;class#ConsolePlayer#0" expanded="false" />
+                <element signature="method#getCharacter#0;class#ConsolePlayer#0" expanded="false" />
+                <element signature="docComment;method#showCards#0;class#ConsolePlayer#0" expanded="false" />
+                <element signature="method#showCards#0;class#ConsolePlayer#0" expanded="false" />
+                <element signature="method#showCards#1;class#ConsolePlayer#0" expanded="false" />
+                <element signature="method#alert#0;class#ConsolePlayer#0" expanded="false" />
+                <element signature="docComment;method#round#0;class#ConsolePlayer#0" expanded="false" />
+                <element signature="method#round#0;class#ConsolePlayer#0" expanded="false" />
+                <element signature="method#endRound#0;class#ConsolePlayer#0" expanded="false" />
+                <element signature="method#setCharacter#0;class#ConsolePlayer#0" expanded="false" />
+                <element signature="method#add#0;class#ConsolePlayer#0" expanded="false" />
+                <element signature="docComment;method#hasToDrop#0;class#ConsolePlayer#0" expanded="false" />
+                <element signature="method#hasToDrop#0;class#ConsolePlayer#0" expanded="false" />
+                <element signature="docComment;method#replaceCards#0;class#ConsolePlayer#0" expanded="false" />
+                <element signature="method#forecast#0;class#ConsolePlayer#0" expanded="false" />
+                <element signature="method#getTrash#0;class#ConsolePlayer#0" expanded="false" />
+                <element signature="method#epidemic#0;class#ConsolePlayer#0" expanded="false" />
+                <element signature="method#playEvent#0;class#ConsolePlayer#0" expanded="false" />
+                <element signature="method#playEventCard#0;class#ConsolePlayer#0" expanded="false" />
+                <element signature="docComment;class#Command#0;class#ConsolePlayer#0" expanded="false" />
+                <element signature="class#Command#0;class#ConsolePlayer#0" expanded="false" />
+                <element signature="method#Command#0;class#Command#0;class#ConsolePlayer#0" expanded="false" />
+                <element signature="method#getHelp#0;class#Command#0;class#ConsolePlayer#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ControllerComponent.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Components/ControllerComponent.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="260">
+              <caret line="275" column="34" lean-forward="false" selection-start-line="275" selection-start-column="34" selection-end-line="275" selection-end-column="34" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#refresh#0;class#ControllerComponent#0" expanded="false" />
+                <element signature="method#message#0;class#ControllerComponent#0" expanded="false" />
+                <element signature="method#getTopComponent#0;class#ControllerComponent#0" expanded="false" />
+                <element signature="e#7678#7679#0" expanded="true" />
+                <element signature="e#7708#7709#0" expanded="true" />
+                <element signature="e#7916#7917#0" expanded="true" />
+                <element signature="e#7965#7966#0" expanded="true" />
+                <element signature="class#Crystal#0;class#ControllerComponent#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Effect.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Effect.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="55" column="36" lean-forward="false" selection-start-line="55" selection-start-column="32" selection-end-line="55" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CharacterComponent.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Components/CharacterComponent.java">
+      <file leaf-file-name="HandComponent.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Components/HandComponent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="28" column="52" lean-forward="true" selection-start-line="28" selection-start-column="52" selection-end-line="28" selection-end-column="52" />
+            <state relative-caret-position="270">
+              <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
               <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TableComponent.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Components/TableComponent.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="712">
-              <caret line="61" column="61" lean-forward="false" selection-start-line="61" selection-start-column="61" selection-end-line="61" selection-end-column="61" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FieldComponent.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Components/FieldComponent.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="44" column="42" lean-forward="true" selection-start-line="44" selection-start-column="42" selection-end-line="44" selection-end-column="42" />
-              <folding>
-                <element signature="e#4918#4919#0" expanded="true" />
-                <element signature="e#4948#4949#0" expanded="true" />
-                <element signature="e#4978#4979#0" expanded="true" />
-                <element signature="e#5006#5007#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Pandemic.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Pandemic/Core/Pandemic.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-              <folding>
-                <element signature="method#main#0;class#Pandemic#0" expanded="false" />
-                <element signature="method#start#0;class#Pandemic#0" expanded="false" />
-                <element signature="method#startConsoleApplication#0;class#Pandemic#0" expanded="false" />
-                <element signature="method#startGraphicsApplication#0;class#Pandemic#0" expanded="false" />
-                <element signature="method#loadGraphicsApplication#0;class#Pandemic#0" expanded="false" />
-                <element signature="method#loadConsoleApplication#0;class#Pandemic#0" expanded="false" />
-                <element signature="method#save#0;class#Pandemic#0" expanded="false" />
-                <element signature="method#load#0;class#Pandemic#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Pandemic/Players/Player.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="103">
-              <caret line="48" column="25" lean-forward="false" selection-start-line="48" selection-start-column="25" selection-end-line="48" selection-end-column="25" />
-              <folding>
-                <element signature="docComment;method#Player#0;class#Player#0" expanded="false" />
-                <element signature="method#Player#0;class#Player#0" expanded="false" />
-                <element signature="docComment;method#Player#1;class#Player#0" expanded="false" />
-                <element signature="method#Player#1;class#Player#0" expanded="false" />
-                <element signature="method#reconstruct#0;class#Player#0" expanded="false" />
-                <element signature="docComment;method#round#0;class#Player#0" expanded="false" />
-                <element signature="method#round#0;class#Player#0" expanded="false" />
-                <element signature="docComment;method#endRound#0;class#Player#0" expanded="false" />
-                <element signature="method#endRound#0;class#Player#0" expanded="false" />
-                <element signature="method#finish#0;class#Player#0" expanded="false" />
-                <element signature="docComment;method#hasCard#0;class#Player#0" expanded="false" />
-                <element signature="method#hasCard#0;class#Player#0" expanded="false" />
-                <element signature="method#useAction#0;class#Player#0" expanded="false" />
-                <element signature="docComment;method#dontInfect#0;class#Player#0" expanded="false" />
-                <element signature="method#epidemic#0;class#Player#0" expanded="false" />
-                <element signature="docComment;method#getCards#0;class#Player#0" expanded="false" />
-                <element signature="method#getCards#0;class#Player#0" expanded="false" />
-                <element signature="method#remove#0;class#Player#0" expanded="false" />
-                <element signature="method#drop#0;class#Player#0" expanded="false" />
-                <element signature="method#playEvent#0;class#Player#0" expanded="false" />
-                <element signature="method#hasCard#1;class#Player#0" expanded="false" />
-                <element signature="method#createAntidote#0;class#Player#0" expanded="false" />
-                <element signature="method#getName#0;class#Player#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AlertBoxComponent.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Components/AlertBoxComponent.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="62" column="17" lean-forward="false" selection-start-line="62" selection-start-column="17" selection-end-line="62" selection-end-column="17" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#3033#3034#0" expanded="true" />
-                <element signature="e#3070#3071#0" expanded="true" />
+                <element signature="method#hide#0;class#HandComponent#0" expanded="false" />
+                <element signature="method#show#0;class#HandComponent#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -187,7 +203,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>bug</find>
       <find>this.drop</find>
       <find>size</find>
       <find>getPl</find>
@@ -217,6 +232,7 @@
       <find>read</find>
       <find>read(</find>
       <find>Thread</find>
+      <find>Sy</find>
     </findStrings>
     <replaceStrings>
       <replace>List&lt;String&gt;</replace>
@@ -235,8 +251,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Pandemic/Characters/OperationExpert.java" />
-        <option value="$PROJECT_DIR$/src/Pandemic/Game.java" />
         <option value="$PROJECT_DIR$/src/Pandemic/Core/Virus.java" />
         <option value="$PROJECT_DIR$/src/Pandemic/Core/Application.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
@@ -259,33 +273,35 @@
         <option value="$PROJECT_DIR$/src/Pandemic/View/Components/Refreshable.java" />
         <option value="$PROJECT_DIR$/src/Pandemic/Cards/Card.java" />
         <option value="$PROJECT_DIR$/src/Pandemic/Cards/CityCard.java" />
-        <option value="$PROJECT_DIR$/src/Pandemic/Cards/EpidemicCard.java" />
-        <option value="$PROJECT_DIR$/src/Pandemic/View/Components/CityCardComponent.java" />
-        <option value="$PROJECT_DIR$/src/Pandemic/View/Components/CardComponent.java" />
         <option value="$PROJECT_DIR$/src/Pandemic/View/Components/PandemicButton.java" />
         <option value="$PROJECT_DIR$/src/Pandemic/View/PandemicScene.java" />
         <option value="$PROJECT_DIR$/src/Pandemic/View/Scenes/alertBox.fxml" />
-        <option value="$PROJECT_DIR$/src/Pandemic/View/Effect.java" />
-        <option value="$PROJECT_DIR$/src/Pandemic/Cards/EventCard.java" />
         <option value="$PROJECT_DIR$/src/Pandemic/Table/Field.java" />
         <option value="$PROJECT_DIR$/src/Pandemic/Table/Table.java" />
         <option value="$PROJECT_DIR$/src/Pandemic/Core/IGame.java" />
         <option value="$PROJECT_DIR$/src/Pandemic/View/Components/PlayerComponent.java" />
-        <option value="$PROJECT_DIR$/src/Pandemic/View/Components/HandComponent.java" />
-        <option value="$PROJECT_DIR$/src/Pandemic/View/Components/ControllerComponent.java" />
         <option value="$PROJECT_DIR$/src/Pandemic/Players/ConsolePlayer.java" />
-        <option value="$PROJECT_DIR$/src/Pandemic/Core/Game.java" />
         <option value="$PROJECT_DIR$/src/Pandemic/View/Components/AlertBoxComponent.java" />
         <option value="$PROJECT_DIR$/src/Pandemic/View/Scenes/MainScene.java" />
         <option value="$PROJECT_DIR$/src/Pandemic/Core/Pandemic.java" />
-        <option value="$PROJECT_DIR$/src/Pandemic/Players/GraphicsPlayer.java" />
         <option value="$PROJECT_DIR$/src/Pandemic/Players/Player.java" />
-        <option value="$PROJECT_DIR$/src/Pandemic/View/Scenes/GameScene.java" />
         <option value="$PROJECT_DIR$/src/Pandemic/View/Components/TableComponent.java" />
         <option value="$PROJECT_DIR$/src/Pandemic/Characters/CharacterType.java" />
-        <option value="$PROJECT_DIR$/src/Pandemic/View/Components/CharacterComponent.java" />
         <option value="$PROJECT_DIR$/src/Pandemic/Characters/Character.java" />
         <option value="$PROJECT_DIR$/src/Pandemic/View/Components/FieldComponent.java" />
+        <option value="$PROJECT_DIR$/src/Pandemic/Cards/EventCard.java" />
+        <option value="$PROJECT_DIR$/src/Pandemic/View/Components/CardComponent.java" />
+        <option value="$PROJECT_DIR$/src/Pandemic/View/Components/CityCardComponent.java" />
+        <option value="$PROJECT_DIR$/src/Pandemic/Cards/EpidemicCard.java" />
+        <option value="$PROJECT_DIR$/src/Pandemic/View/Components/EventCardComponent.java" />
+        <option value="$PROJECT_DIR$/src/Pandemic/View/Components/EpidemicCardComponent.java" />
+        <option value="$PROJECT_DIR$/src/Pandemic/View/Components/CharacterComponent.java" />
+        <option value="$PROJECT_DIR$/src/Pandemic/Players/GraphicsPlayer.java" />
+        <option value="$PROJECT_DIR$/src/Pandemic/View/Components/HandComponent.java" />
+        <option value="$PROJECT_DIR$/src/Pandemic/View/Components/ControllerComponent.java" />
+        <option value="$PROJECT_DIR$/src/Pandemic/Core/Game.java" />
+        <option value="$PROJECT_DIR$/src/Pandemic/View/Effect.java" />
+        <option value="$PROJECT_DIR$/src/Pandemic/View/Scenes/GameScene.java" />
       </list>
     </option>
   </component>
@@ -301,7 +317,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="324" />
     <option name="y" value="-8" />
     <option name="width" value="697" />
@@ -339,6 +355,13 @@
               <item name="pandemic" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Pandemic" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pandemic" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pandemic" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Pandemic" type="462c0819:PsiDirectoryNode" />
+              <item name="View" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -510,15 +533,16 @@
       <workItem from="1542038300780" duration="673000" />
       <workItem from="1542062541231" duration="59000" />
       <workItem from="1542116646807" duration="25426000" />
-      <workItem from="1542190248140" duration="29226000" />
+      <workItem from="1542190248140" duration="37398000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="255500000" />
+    <option name="totallyTimeSpent" value="263672000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -529,11 +553,11 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13228346" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17952757" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21010248" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18960468" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -562,43 +586,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/javafx.graphics/javafx/scene/paint/LinearGradient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="248" column="11" lean-forward="false" selection-start-line="248" selection-start-column="11" selection-end-line="248" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/javafx.graphics/javafx/scene/layout/Region.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="1130" column="41" lean-forward="false" selection-start-line="1130" selection-start-column="41" selection-end-line="1130" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Pandemic/Core/Saver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Pandemic/Cards/EpidemicCard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="17" column="8" lean-forward="false" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Pandemic/Cards/CityCard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="42" column="5" lean-forward="false" selection-start-line="40" selection-start-column="37" selection-end-line="42" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/java.base/java/lang/Math.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="35">
@@ -617,16 +604,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
           <caret line="203" column="11" lean-forward="false" selection-start-line="203" selection-start-column="11" selection-end-line="203" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Components/CardComponent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="11" lean-forward="false" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -673,18 +650,6 @@
           <folding>
             <element signature="e#31313#31314#0" expanded="false" />
             <element signature="e#31390#31391#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Components/CityCardComponent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1005">
-          <caret line="12" column="36" lean-forward="false" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="36" />
-          <caret line="45" column="30" lean-forward="false" selection-start-line="45" selection-start-column="26" selection-end-line="45" selection-end-column="30" />
-          <caret line="67" column="30" lean-forward="false" selection-start-line="67" selection-start-column="26" selection-end-line="67" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -753,14 +718,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Pandemic/Cards/EventCard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-814">
-          <caret line="42" column="111" lean-forward="false" selection-start-line="42" selection-start-column="111" selection-end-line="42" selection-end-column="111" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Pandemic/Table/Field.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="248">
@@ -780,34 +737,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/javafx.graphics/javafx/scene/layout/BorderStroke.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="203" column="11" lean-forward="false" selection-start-line="203" selection-start-column="11" selection-end-line="203" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Effect.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="19" column="45" lean-forward="false" selection-start-line="19" selection-start-column="45" selection-end-line="19" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Pandemic/Core/IGame.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="28" column="5" lean-forward="false" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Pandemic/Table/Table.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="389">
-          <caret line="136" column="9" lean-forward="true" selection-start-line="136" selection-start-column="9" selection-end-line="136" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -823,42 +756,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Components/HandComponent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="25" column="58" lean-forward="false" selection-start-line="25" selection-start-column="58" selection-end-line="25" selection-end-column="58" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#refresh#0;class#HandComponent#0" expanded="false" />
-            <element signature="method#hide#0;class#HandComponent#0" expanded="false" />
-            <element signature="method#show#0;class#HandComponent#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Components/PlayerComponent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
           <caret line="28" column="41" lean-forward="true" selection-start-line="28" selection-start-column="41" selection-end-line="28" selection-end-column="41" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
             <element signature="method#disable#0;class#PlayerComponent#0" expanded="false" />
-            <element signature="e#855#856#0" expanded="true" />
-            <element signature="e#884#885#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Components/ControllerComponent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-631">
-          <caret line="18" column="25" lean-forward="false" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
-          <folding>
-            <element signature="method#refresh#0;class#ControllerComponent#0" expanded="false" />
-            <element signature="method#message#0;class#ControllerComponent#0" expanded="false" />
-            <element signature="method#getTopComponent#0;class#ControllerComponent#0" expanded="false" />
-            <element signature="method#init#0;class#ControllButton#0;class#ControllerComponent#0" expanded="false" />
-            <element signature="class#Crystal#0;class#ControllerComponent#0" expanded="false" />
+            <element signature="e#855#856#0" expanded="false" />
+            <element signature="e#884#885#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -887,82 +793,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Pandemic/Players/ConsolePlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="131" column="114" lean-forward="false" selection-start-line="131" selection-start-column="114" selection-end-line="131" selection-end-column="114" />
-          <folding>
-            <element signature="method#ConsolePlayer#0;class#ConsolePlayer#0" expanded="false" />
-            <element signature="docComment;method#readCommands#0;class#ConsolePlayer#0" expanded="false" />
-            <element signature="method#readCommands#0;class#ConsolePlayer#0" expanded="false" />
-            <element signature="method#getCommand#0;class#ConsolePlayer#0" expanded="false" />
-            <element signature="method#chooseCard#0;class#ConsolePlayer#0" expanded="false" />
-            <element signature="method#getCharacter#0;class#ConsolePlayer#0" expanded="false" />
-            <element signature="docComment;method#showCards#0;class#ConsolePlayer#0" expanded="false" />
-            <element signature="method#showCards#0;class#ConsolePlayer#0" expanded="false" />
-            <element signature="method#showCards#1;class#ConsolePlayer#0" expanded="false" />
-            <element signature="method#alert#0;class#ConsolePlayer#0" expanded="false" />
-            <element signature="docComment;method#round#0;class#ConsolePlayer#0" expanded="false" />
-            <element signature="method#round#0;class#ConsolePlayer#0" expanded="false" />
-            <element signature="method#endRound#0;class#ConsolePlayer#0" expanded="false" />
-            <element signature="method#setCharacter#0;class#ConsolePlayer#0" expanded="false" />
-            <element signature="method#add#0;class#ConsolePlayer#0" expanded="false" />
-            <element signature="docComment;method#hasToDrop#0;class#ConsolePlayer#0" expanded="false" />
-            <element signature="method#hasToDrop#0;class#ConsolePlayer#0" expanded="false" />
-            <element signature="docComment;method#replaceCards#0;class#ConsolePlayer#0" expanded="false" />
-            <element signature="method#forecast#0;class#ConsolePlayer#0" expanded="false" />
-            <element signature="method#getTrash#0;class#ConsolePlayer#0" expanded="false" />
-            <element signature="method#epidemic#0;class#ConsolePlayer#0" expanded="false" />
-            <element signature="method#playEvent#0;class#ConsolePlayer#0" expanded="false" />
-            <element signature="method#playEventCard#0;class#ConsolePlayer#0" expanded="false" />
-            <element signature="docComment;class#Command#0;class#ConsolePlayer#0" expanded="false" />
-            <element signature="class#Command#0;class#ConsolePlayer#0" expanded="false" />
-            <element signature="method#Command#0;class#Command#0;class#ConsolePlayer#0" expanded="false" />
-            <element signature="method#getHelp#0;class#Command#0;class#ConsolePlayer#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Pandemic/Core/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="61" column="16" lean-forward="false" selection-start-line="61" selection-start-column="16" selection-end-line="61" selection-end-column="16" />
-          <folding>
-            <element signature="method#Game#0;class#Game#0" expanded="false" />
-            <element signature="method#initialize#0;class#Game#0" expanded="false" />
-            <element signature="method#start#0;class#Game#0" expanded="false" />
-            <element signature="method#reconstruct#0;class#Game#0" expanded="false" />
-            <element signature="docComment;method#createMainDeck#0;class#Game#0" expanded="false" />
-            <element signature="method#createMainDeck#0;class#Game#0" expanded="false" />
-            <element signature="docComment;method#dealCards#0;class#Game#0" expanded="false" />
-            <element signature="method#dealCards#0;class#Game#0" expanded="false" />
-            <element signature="method#createCharacters#0;class#Game#0" expanded="false" />
-            <element signature="docComment;method#setInfection#0;class#Game#0" expanded="false" />
-            <element signature="method#setInfection#0;class#Game#0" expanded="false" />
-            <element signature="method#endGame#0;class#Game#0" expanded="false" />
-            <element signature="method#infect#0;class#Game#0" expanded="false" />
-            <element signature="method#draw#0;class#Game#0" expanded="false" />
-            <element signature="method#addBreakOuts#0;class#Game#0" expanded="false" />
-            <element signature="method#isAntidoteMade#0;class#Game#0" expanded="false" />
-            <element signature="method#endRound#0;class#Game#0" expanded="false" />
-            <element signature="method#createAntidote#0;class#Game#0" expanded="false" />
-            <element signature="method#undo#0;class#Game#0" expanded="false" />
-            <element signature="method#forecast#0;class#Game#0" expanded="false" />
-            <element signature="method#replaceCards#0;class#Game#0" expanded="false" />
-            <element signature="method#epidemic#0;class#Game#0" expanded="false" />
-            <element signature="method#infectLastCity#0;class#Game#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Components/AlertBoxComponent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="305">
           <caret line="62" column="17" lean-forward="false" selection-start-line="62" selection-start-column="17" selection-end-line="62" selection-end-column="17" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3033#3034#0" expanded="true" />
-            <element signature="e#3070#3071#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#3033#3034#0" expanded="false" />
+            <element signature="e#3070#3071#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -988,23 +826,6 @@
             <element signature="method#loadConsoleApplication#0;class#Pandemic#0" expanded="false" />
             <element signature="method#save#0;class#Pandemic#0" expanded="false" />
             <element signature="method#load#0;class#Pandemic#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Pandemic/Players/GraphicsPlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#GraphicsPlayer#0;class#GraphicsPlayer#0" expanded="false" />
-            <element signature="method#round#0;class#GraphicsPlayer#0" expanded="false" />
-            <element signature="method#hasToDrop#0;class#GraphicsPlayer#0" expanded="false" />
-            <element signature="method#showInfection#0;class#GraphicsPlayer#0" expanded="false" />
-            <element signature="e#896#897#0" expanded="true" />
-            <element signature="e#923#924#0" expanded="true" />
-            <element signature="method#replaceCards#0;class#GraphicsPlayer#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1041,15 +862,287 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Scenes/GameScene.java">
+    <entry file="file://$PROJECT_DIR$/src/Pandemic/Characters/CharacterType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="25" column="40" lean-forward="false" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pandemic/Characters/Character.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="170" column="36" lean-forward="false" selection-start-line="170" selection-start-column="36" selection-end-line="170" selection-end-column="36" />
+          <folding>
+            <element signature="e#4852#4853#0" expanded="false" />
+            <element signature="e#4895#4896#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/javafx.graphics/javafx/scene/Node.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="5566" column="32" lean-forward="false" selection-start-line="5566" selection-start-column="32" selection-end-line="5566" selection-end-column="32" />
+          <folding>
+            <element signature="e#237651#237652#0" expanded="false" />
+            <element signature="e#237718#237719#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Components/FieldComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="44" column="42" lean-forward="false" selection-start-line="44" selection-start-column="42" selection-end-line="44" selection-end-column="42" />
+          <folding>
+            <element signature="e#4918#4919#0" expanded="false" />
+            <element signature="e#4948#4949#0" expanded="false" />
+            <element signature="e#4978#4979#0" expanded="false" />
+            <element signature="e#5006#5007#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pandemic/Cards/CityCard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Components/CardComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="25" column="91" lean-forward="false" selection-start-line="25" selection-start-column="91" selection-end-line="25" selection-end-column="91" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1177#1178#0" expanded="false" />
+            <element signature="e#1199#1200#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Components/TableComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="93">
+          <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pandemic/Cards/EventCard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="43" column="42" lean-forward="false" selection-start-line="43" selection-start-column="42" selection-end-line="43" selection-end-column="42" />
+          <folding>
+            <element signature="e#1080#1081#0" expanded="false" />
+            <element signature="e#1131#1132#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pandemic/Cards/EpidemicCard.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
-          <caret line="111" column="25" lean-forward="false" selection-start-line="111" selection-start-column="25" selection-end-line="111" selection-end-column="25" />
+          <caret line="18" column="14" lean-forward="false" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/javafx.graphics/javafx/scene/layout/BorderStroke.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="203" column="11" lean-forward="false" selection-start-line="203" selection-start-column="11" selection-end-line="203" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Components/EventCardComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-11">
+          <caret line="8" column="32" lean-forward="true" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
+          <folding>
+            <element signature="e#581#582#0" expanded="false" />
+            <element signature="e#605#606#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Components/EpidemicCardComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="36" column="38" lean-forward="false" selection-start-line="36" selection-start-column="38" selection-end-line="36" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Components/CityCardComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="49" column="63" lean-forward="true" selection-start-line="49" selection-start-column="63" selection-end-line="49" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pandemic/Core/Events.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="12" column="20" lean-forward="false" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Components/HandComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding>
+            <element signature="method#hide#0;class#HandComponent#0" expanded="false" />
+            <element signature="method#show#0;class#HandComponent#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pandemic/Players/ConsolePlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1005">
+          <caret line="131" column="114" lean-forward="false" selection-start-line="131" selection-start-column="114" selection-end-line="131" selection-end-column="114" />
+          <folding>
+            <element signature="method#ConsolePlayer#0;class#ConsolePlayer#0" expanded="false" />
+            <element signature="docComment;method#readCommands#0;class#ConsolePlayer#0" expanded="false" />
+            <element signature="method#readCommands#0;class#ConsolePlayer#0" expanded="false" />
+            <element signature="method#getCommand#0;class#ConsolePlayer#0" expanded="false" />
+            <element signature="method#chooseCard#0;class#ConsolePlayer#0" expanded="false" />
+            <element signature="method#getCharacter#0;class#ConsolePlayer#0" expanded="false" />
+            <element signature="docComment;method#showCards#0;class#ConsolePlayer#0" expanded="false" />
+            <element signature="method#showCards#0;class#ConsolePlayer#0" expanded="false" />
+            <element signature="method#showCards#1;class#ConsolePlayer#0" expanded="false" />
+            <element signature="method#alert#0;class#ConsolePlayer#0" expanded="false" />
+            <element signature="docComment;method#round#0;class#ConsolePlayer#0" expanded="false" />
+            <element signature="method#round#0;class#ConsolePlayer#0" expanded="false" />
+            <element signature="method#endRound#0;class#ConsolePlayer#0" expanded="false" />
+            <element signature="method#setCharacter#0;class#ConsolePlayer#0" expanded="false" />
+            <element signature="method#add#0;class#ConsolePlayer#0" expanded="false" />
+            <element signature="docComment;method#hasToDrop#0;class#ConsolePlayer#0" expanded="false" />
+            <element signature="method#hasToDrop#0;class#ConsolePlayer#0" expanded="false" />
+            <element signature="docComment;method#replaceCards#0;class#ConsolePlayer#0" expanded="false" />
+            <element signature="method#forecast#0;class#ConsolePlayer#0" expanded="false" />
+            <element signature="method#getTrash#0;class#ConsolePlayer#0" expanded="false" />
+            <element signature="method#epidemic#0;class#ConsolePlayer#0" expanded="false" />
+            <element signature="method#playEvent#0;class#ConsolePlayer#0" expanded="false" />
+            <element signature="method#playEventCard#0;class#ConsolePlayer#0" expanded="false" />
+            <element signature="docComment;class#Command#0;class#ConsolePlayer#0" expanded="false" />
+            <element signature="class#Command#0;class#ConsolePlayer#0" expanded="false" />
+            <element signature="method#Command#0;class#Command#0;class#ConsolePlayer#0" expanded="false" />
+            <element signature="method#getHelp#0;class#Command#0;class#ConsolePlayer#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pandemic/Table/Table.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Components/CharacterComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="15" lean-forward="false" selection-start-line="16" selection-start-column="15" selection-end-line="16" selection-end-column="15" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1269#1270#0" expanded="true" />
-            <element signature="e#1301#1302#0" expanded="true" />
-            <element signature="method#init#0;class#GameScene#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pandemic/Core/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="55" column="57" lean-forward="false" selection-start-line="55" selection-start-column="57" selection-end-line="55" selection-end-column="57" />
+          <folding>
+            <element signature="method#Game#0;class#Game#0" expanded="false" />
+            <element signature="method#start#0;class#Game#0" expanded="false" />
+            <element signature="method#reconstruct#0;class#Game#0" expanded="false" />
+            <element signature="docComment;method#createMainDeck#0;class#Game#0" expanded="false" />
+            <element signature="method#createMainDeck#0;class#Game#0" expanded="false" />
+            <element signature="docComment;method#dealCards#0;class#Game#0" expanded="false" />
+            <element signature="method#dealCards#0;class#Game#0" expanded="false" />
+            <element signature="method#createCharacters#0;class#Game#0" expanded="false" />
+            <element signature="docComment;method#setInfection#0;class#Game#0" expanded="false" />
+            <element signature="method#setInfection#0;class#Game#0" expanded="false" />
+            <element signature="method#endGame#0;class#Game#0" expanded="false" />
+            <element signature="method#infect#0;class#Game#0" expanded="false" />
+            <element signature="method#draw#0;class#Game#0" expanded="false" />
+            <element signature="method#addBreakOuts#0;class#Game#0" expanded="false" />
+            <element signature="method#isAntidoteMade#0;class#Game#0" expanded="false" />
+            <element signature="method#endRound#0;class#Game#0" expanded="false" />
+            <element signature="method#createAntidote#0;class#Game#0" expanded="false" />
+            <element signature="method#undo#0;class#Game#0" expanded="false" />
+            <element signature="method#forecast#0;class#Game#0" expanded="false" />
+            <element signature="method#replaceCards#0;class#Game#0" expanded="false" />
+            <element signature="method#epidemic#0;class#Game#0" expanded="false" />
+            <element signature="method#infectLastCity#0;class#Game#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pandemic/Players/GraphicsPlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="50" column="5" lean-forward="false" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
+          <folding>
+            <element signature="method#GraphicsPlayer#0;class#GraphicsPlayer#0" expanded="false" />
+            <element signature="method#round#0;class#GraphicsPlayer#0" expanded="false" />
+            <element signature="method#hasToDrop#0;class#GraphicsPlayer#0" expanded="false" />
+            <element signature="method#showInfection#0;class#GraphicsPlayer#0" expanded="false" />
+            <element signature="method#replaceCards#0;class#GraphicsPlayer#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Components/ControllerComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="275" column="34" lean-forward="false" selection-start-line="275" selection-start-column="34" selection-end-line="275" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#refresh#0;class#ControllerComponent#0" expanded="false" />
+            <element signature="method#message#0;class#ControllerComponent#0" expanded="false" />
+            <element signature="method#getTopComponent#0;class#ControllerComponent#0" expanded="false" />
+            <element signature="e#7678#7679#0" expanded="true" />
+            <element signature="e#7708#7709#0" expanded="true" />
+            <element signature="e#7916#7917#0" expanded="true" />
+            <element signature="e#7965#7966#0" expanded="true" />
+            <element signature="class#Crystal#0;class#ControllerComponent#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Effect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="55" column="36" lean-forward="false" selection-start-line="55" selection-start-column="32" selection-end-line="55" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Scenes/GameScene.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="344">
+          <caret line="280" column="30" lean-forward="false" selection-start-line="280" selection-start-column="30" selection-end-line="280" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1329#1330#0" expanded="true" />
+            <element signature="e#1361#1362#0" expanded="true" />
             <element signature="method#colorOfVirus#0;class#GameScene#0" expanded="false" />
             <element signature="method#newRound#0;class#GameScene#0" expanded="false" />
             <element signature="method#refresh#0;class#GameScene#0" expanded="false" />
@@ -1060,69 +1153,6 @@
             <element signature="method#drawTable#0;class#GameScene#0" expanded="false" />
             <element signature="method#drawButton#0;class#GameScene#0" expanded="false" />
             <element signature="method#getButton#0;class#GameScene#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Pandemic/Characters/CharacterType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="25" column="40" lean-forward="true" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Components/CharacterComponent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="28" column="52" lean-forward="true" selection-start-line="28" selection-start-column="52" selection-end-line="28" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Components/TableComponent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="712">
-          <caret line="61" column="61" lean-forward="false" selection-start-line="61" selection-start-column="61" selection-end-line="61" selection-end-column="61" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Pandemic/Characters/Character.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="170" column="36" lean-forward="false" selection-start-line="170" selection-start-column="36" selection-end-line="170" selection-end-column="36" />
-          <folding>
-            <element signature="e#4852#4853#0" expanded="true" />
-            <element signature="e#4895#4896#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/javafx.graphics/javafx/scene/Node.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="5566" column="32" lean-forward="false" selection-start-line="5566" selection-start-column="32" selection-end-line="5566" selection-end-column="32" />
-          <folding>
-            <element signature="e#237651#237652#0" expanded="true" />
-            <element signature="e#237718#237719#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Pandemic/View/Components/FieldComponent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="44" column="42" lean-forward="true" selection-start-line="44" selection-start-column="42" selection-end-line="44" selection-end-column="42" />
-          <folding>
-            <element signature="e#4918#4919#0" expanded="true" />
-            <element signature="e#4948#4949#0" expanded="true" />
-            <element signature="e#4978#4979#0" expanded="true" />
-            <element signature="e#5006#5007#0" expanded="true" />
           </folding>
         </state>
       </provider>

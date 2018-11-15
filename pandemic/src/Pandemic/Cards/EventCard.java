@@ -9,6 +9,7 @@ import Pandemic.Table.Field;
 import Pandemic.Characters.Character;
 import Pandemic.View.Components.CardComponent;
 import Pandemic.View.Components.CityCardComponent;
+import Pandemic.View.Components.EventCardComponent;
 import javafx.geometry.Point2D;
 
 import java.io.Serializable;
@@ -40,7 +41,7 @@ public class EventCard extends Card implements Serializable {
 
     @Override
     public CardComponent getDrawer() {
-        return new CityCardComponent(new CityCard(new Field("Atlanta", Virus.BLUE, new Field.Coordinates(0, 0)), 10000));
+        return new EventCardComponent(this);
     }
 
     public enum EventTypes{

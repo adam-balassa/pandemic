@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HandComponent extends StackPane{
-    private List<Card> cards;
+    private List<? extends Card> cards;
     private int width = 500;
     private int height = 300;
     private double scale = 1.0;
@@ -21,14 +21,13 @@ public class HandComponent extends StackPane{
 
     private StackPane content;
 
-    public HandComponent(List<Card> cards){
+    public HandComponent(List<? extends Card> cards){
         this.cards = cards;
         this.getChildren().add(content = new StackPane());
     }
 
     public void refresh(){
         content.setTranslateY(translation * scale);
-
         content.getChildren().clear();
         content.setAlignment(Pos.BOTTOM_CENTER);
 
@@ -41,7 +40,7 @@ public class HandComponent extends StackPane{
         int i = 0;
         for (CardComponent component : cardComponents){
             component.setScale(scale);
-            component.init();
+            component.refresh();
 
 
             final double transformAngle = -defaultAngle / 2 + angle * i;

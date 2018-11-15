@@ -1,6 +1,7 @@
 package Pandemic.Players;
 
 import Pandemic.Cards.CityCard;
+import Pandemic.Cards.EventCard;
 import Pandemic.Core.IGame;
 import Pandemic.Exceptions.EndOfGame;
 import Pandemic.View.Scenes.GameScene;
@@ -41,7 +42,7 @@ public class GraphicsPlayer extends Player implements Serializable {
 
     @Override
     public List<CityCard> getTrash() {
-        return null;
+        return game.getTrash();
     }
 
     @Override

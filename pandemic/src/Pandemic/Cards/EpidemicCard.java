@@ -3,6 +3,7 @@ package Pandemic.Cards;
 import Pandemic.Exceptions.EndOfGame;
 import Pandemic.Players.Player;
 import Pandemic.View.Components.CardComponent;
+import Pandemic.View.Components.EpidemicCardComponent;
 
 public class EpidemicCard extends Card{
     public EpidemicCard(){
@@ -15,6 +16,6 @@ public class EpidemicCard extends Card{
 
     @Override
     public CardComponent getDrawer() {
-        return null;
+       return new EpidemicCardComponent();
     }
 }

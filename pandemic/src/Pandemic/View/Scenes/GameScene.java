@@ -1,4 +1,6 @@
 package Pandemic.View.Scenes;
+import Pandemic.Cards.Card;
+import Pandemic.Cards.CityCard;
 import Pandemic.Core.Game;
 import Pandemic.Core.IGame;
 import Pandemic.Core.Virus;
@@ -30,7 +32,7 @@ public class GameScene extends PandemicScene{
     private PlayerComponent activePlayerComponent;
     private List<PlayerComponent> playerComponents;
     private GraphicsPlayer activePlayer;
-    private int width = 1100;
+    private int width = 1250;
     private int height = 680;
     private ControllerComponent controller;
     private BorderPane main;
@@ -53,6 +55,7 @@ public class GameScene extends PandemicScene{
         main.setMinWidth(width);
 
         controller = new ControllerComponent();
+        setControlButtonActions();
 
         playerComponents = new ArrayList<>();
         Player[] players = game.getPlayers();
@@ -265,5 +268,23 @@ public class GameScene extends PandemicScene{
             transition.play();
         });
         return pane;
+    }
+
+    private void setControlButtonActions(){
+        Map<String, ControllerComponent.ControllButton> buttons = controller.getButtons();
+        buttons.get("infection").setOnMouseClicked(e -> {
+            List<CityCard> cards = game.getTrash();
+            if(cards.size() != 0){
+                HandComponent hand = new HandComponent(cards);
+                hand.show();
+                root.getChildren().add(hand);
+                Effect.fadeIn(hand);
+                hand.setOnMouseClicked(f -> {
+                    Effect.fadeOut(hand).setOnFinished(g -> {
+                        this.root.getChildren().remove(hand);
+                    });
+                });
+            }
+        });
     }
 }

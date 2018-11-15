@@ -1,5 +1,7 @@
 package Pandemic.View.Components;
 
+import Pandemic.Cards.CityCard;
+import Pandemic.Cards.EventCard;
 import Pandemic.Core.Virus;
 import Pandemic.Players.GraphicsPlayer;
 import Pandemic.Players.Player;
@@ -9,6 +11,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.*;
@@ -17,6 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -51,15 +55,19 @@ public class ControllerComponent extends BorderPane {
         buttons = ControllButton.getButtons();
         HBox buttonsHolder = new HBox();
         Effect.grow(buttonsHolder);
-        buttonsHolder.getChildren().addAll(buttons.values());
+        VBox decks = new VBox(buttons.get("main"), buttons.get("infection"));
+        decks.setSpacing(10); decks.setAlignment(Pos.CENTER);
+        buttonsHolder.getChildren().addAll(
+                buttons.get("restart"),
+                buttons.get("treat"),
+                buttons.get("share"),
+                buttons.get("build"),
+                buttons.get("antidote"),
+                buttons.get("pass"),
+                decks
+        );
         buttonsHolder.setSpacing(20);
         buttonsHolder.setAlignment(Pos.CENTER);
-
-
-
-        buttons.get("treat").setOnMouseClicked(e -> {
-            currentPlayer.test();
-        });
 
         actions = new VBox();
         actions.setSpacing(10);
@@ -188,35 +196,46 @@ public class ControllerComponent extends BorderPane {
         return topPart;
     }
 
-    static private class ControllButton extends StackPane {
+    public Map<String, ControllButton> getButtons(){
+        return buttons;
+    }
+
+    static public class ControllButton extends StackPane {
         private String text;
         private ImageView image;
+        private double width, height;
         ControllButton(String text, Image img){
+            this(text, img, 100, 100);
+        }
+
+        ControllButton(String text, Image img, double width, double height){
+            this.width = width;
+            this.height = height;
+
             this.text = text;
-            image = new ImageView();
-            image.setImage(img);
-            image.setFitHeight(30);
-            image.setFitWidth(30);
+            if(img != null){
+                image = new ImageView();
+                image.setImage(img);
+                image.setFitHeight(30);
+                image.setFitWidth(30);
+            }
             init();
         }
+
         private void init(){
             VBox main = new VBox();
             this.setAlignment(Pos.CENTER);
             main.setAlignment(Pos.CENTER);
-            main.setSpacing(10);
-            Effect.setSize(main, 100, 100);
+            Effect.setSize(main, width, height);
             main.setBackground(new Background(new BackgroundFill(Effect.gradient(
                     Color.color(1, 1, 1, 0.05), Color.color(1, 1, 1, 0.2), 2, true, false
             ), new CornerRadii(20), null)));
             main.setCursor(Cursor.HAND);
+            main.setSpacing(10);
 
             Text label = new Text(text);
             label.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 17));
             label.setFill(Color.WHITE);
-            main.getChildren().addAll(image, label);
-            this.getChildren().add(main);
-
-            main.setBorder(new Border(new BorderStroke(Color.color(1, 1, 1, 0.1), BorderStrokeStyle.SOLID, new CornerRadii(20), BorderWidths.DEFAULT)));
 
             main.setOnMouseEntered(e -> {
                 main.setBackground(new Background(new BackgroundFill(Effect.gradient(
@@ -224,15 +243,25 @@ public class ControllerComponent extends BorderPane {
                 ), new CornerRadii(20), null)));
 
                 label.setEffect(new DropShadow(BlurType.GAUSSIAN, Color.color(1, 1, 1, 0.3), 5, 0.4, 0, 0));
-                image.setEffect(new DropShadow(BlurType.GAUSSIAN, Color.color(1, 1, 1, 0.3), 5, 0.4, 0, 0));
+                if(image != null)
+                    image.setEffect(new DropShadow(BlurType.GAUSSIAN, Color.color(1, 1, 1, 0.3), 5, 0.4, 0, 0));
             });
             main.setOnMouseExited(e -> {
                 main.setBackground(new Background(new BackgroundFill(Effect.gradient(
                         Color.color(1, 1, 1, 0.05), Color.color(1, 1, 1, 0.2), 2, true, false
                 ), new CornerRadii(20), null)));
                 label.setEffect(null);
-                image.setEffect(null);
+                if(image != null)
+                    image.setEffect(null);
             });
+
+            if(image != null) main.getChildren().addAll(image, label);
+            else main.getChildren().add(label);
+            this.getChildren().add(main);
+
+            main.setBorder(new Border(new BorderStroke(Color.color(1, 1, 1, 0.1), BorderStrokeStyle.SOLID, new CornerRadii(20), BorderWidths.DEFAULT)));
+
+
         }
 
         static Map<String, ControllButton> getButtons(){
@@ -243,6 +272,8 @@ public class ControllerComponent extends BorderPane {
             buttons.put("antidote", new ControllButton("Antidote", new Image("file:res/antidote.png")));
             buttons.put("pass", new ControllButton("Pass", new Image("file:res/pass.png")));
             buttons.put("restart", new ControllButton("Restart", new Image("file:res/restart.png") ));
+            buttons.put("main", new ControllButton("Main Trash", null, 140, 45));
+            buttons.put("infection", new ControllButton("Infection Trash", null, 140, 45));
 
             return buttons;
         }
