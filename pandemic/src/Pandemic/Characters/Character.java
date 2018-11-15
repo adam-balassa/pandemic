@@ -7,6 +7,7 @@ import Pandemic.Exceptions.*;
 import Pandemic.Core.Hand;
 import Pandemic.Table.Field;
 import Pandemic.Core.Virus;
+import javafx.scene.paint.Color;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -164,5 +165,9 @@ abstract public class Character implements Actions, Serializable {
 
     public boolean equals(String s) {
         return character.name.equals(s);
+    }
+
+    public Color getColor(){
+        return this.character.color;
     }
 }

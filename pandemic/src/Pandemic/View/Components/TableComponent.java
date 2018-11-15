@@ -57,4 +57,8 @@ public class TableComponent extends StackPane{
         line.setStrokeWidth(2);
         lines.getChildren().add(line);
     }
+
+    public void refresh(){
+        for(FieldComponent fc: fieldComponents) fc.refresh();
+    }
 }

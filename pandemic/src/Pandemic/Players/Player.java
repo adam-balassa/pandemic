@@ -51,7 +51,7 @@ public abstract class Player implements Hand, Events, Serializable {
         this.name = name;
     }
 
-    protected int getRemainingActions(){
+    public int getRemainingActions(){
         return this.actions;
     }
 

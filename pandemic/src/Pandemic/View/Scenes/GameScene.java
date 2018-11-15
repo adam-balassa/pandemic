@@ -109,6 +109,11 @@ public class GameScene extends PandemicScene{
         this.show();
     }
 
+    public void refresh(){
+        controller.refresh(activePlayer.getRemainingActions(), game.getAntidotes());
+        table.refresh();
+    }
+
     public void endGame(){
         Stage window = (Stage) this.scene.getWindow();
         alert(new EndOfGame("Game over"), "Game over");

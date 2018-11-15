@@ -1,7 +1,9 @@
 package Pandemic.View.Components;
 
+import Pandemic.Characters.Character;
 import Pandemic.Core.Virus;
 import Pandemic.Table.Field;
+import Pandemic.View.Effect;
 import Pandemic.View.Scenes.GameScene;
 import javafx.animation.RotateTransition;
 import javafx.geometry.Point2D;
@@ -27,21 +29,20 @@ public class FieldComponent extends StackPane {
     private int height = 55;
     private double scale = 1;
     private Color color;
+    private List<CharacterComponent> characterComponents;
 
     public FieldComponent(Field f){
         this.field = f;
         this.color = GameScene.colorOfVirus(f.getColor());
+        characterComponents = new ArrayList<>();
         refresh();
     }
 
     public void refresh() {
         this.getChildren().removeAll();
-        this.setMaxWidth(width * scale);
-        this.setMinWidth(width * scale);
-        this.setMinHeight(height * scale);
-        this.setMaxHeight(height * scale);
+        characterComponents.clear();
+        Effect.setSize(this, width * scale, height* scale);
         this.setAlignment(Pos.TOP_CENTER);
-        //this.setBorder(new Border(new BorderStroke(Color.color(0, 0, 0, 0.1), BorderStrokeStyle.SOLID, null, BorderWidths.DEFAULT)));
 
         StackPane center = new StackPane();
         Circle centerCircle = new Circle(width * scale / 2, width * scale / 2, width * scale * 0.3, Color.WHITESMOKE);
@@ -54,6 +55,16 @@ public class FieldComponent extends StackPane {
         };
         if(!this.field.hasStation()){
             centerCircle.setFill(new RadialGradient(0, 0, 0.5, 0.5, 1, true, CycleMethod.NO_CYCLE, stops));
+        }
+
+        for(Character c: field.getCharacters())
+            characterComponents.add(new CharacterComponent(c.getColor()));
+
+        int numOfCharacters = characterComponents.size();
+        double distance = 14;
+        for(int i = 0; i < numOfCharacters; i++){
+            characterComponents.get(i).setTranslateX(distance * (i - 1) / -2);
+            characterComponents.get(i).setTranslateY(-1);
         }
 
         StackPane virusPane = new StackPane();
@@ -82,8 +93,7 @@ public class FieldComponent extends StackPane {
         text.setTranslateY(this.height * scale - text.getFont().getSize());
 
         this.getChildren().add(text);
-        //this.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
-        //this.setBlendMode(BlendMode.ADD);
+        this.getChildren().addAll(characterComponents);
     }
 
     private void setInfection(StackPane holder){
