@@ -8,7 +8,7 @@ import java.util.List;
 public interface Events {
     void dontInfect();
     List<CityCard> forecast();
-    List<CityCard> getTrash();
+    InfectionTrash getTrash();
     void epidemic() throws EndOfGame;
     void replaceCards(List<CityCard> c);
 }

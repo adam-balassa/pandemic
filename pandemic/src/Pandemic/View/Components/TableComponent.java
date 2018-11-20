@@ -1,5 +1,6 @@
 package Pandemic.View.Components;
 
+import Pandemic.Players.GraphicsPlayer;
 import Pandemic.Table.Field;
 import javafx.geometry.Pos;
 import javafx.scene.layout.AnchorPane;
@@ -49,7 +50,7 @@ public class TableComponent extends StackPane{
                 if(neighbour.getName().compareTo(field.getName()) > 0)
                     drawConnection(field, neighbour);
         }
-        this.getChildren().add(lines);
+        this.getChildren().add(0, lines);
     }
     private void drawConnection(Field a, Field b){
         Line line = new Line(a.getPosition().x * scale, a.getPosition().y * scale, b.getPosition().x * scale, b.getPosition().y * scale);
@@ -58,7 +59,7 @@ public class TableComponent extends StackPane{
         lines.getChildren().add(line);
     }
 
-    public void refresh(){
-        for(FieldComponent fc: fieldComponents) fc.refresh();
+    public void refresh(GraphicsPlayer newCurrentPlayer){
+        for(FieldComponent fc: fieldComponents) fc.refresh(newCurrentPlayer);
     }
 }

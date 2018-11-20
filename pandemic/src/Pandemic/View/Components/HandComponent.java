@@ -2,12 +2,16 @@ package Pandemic.View.Components;
 
 import Pandemic.Cards.Card;
 import javafx.animation.TranslateTransition;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +22,7 @@ public class HandComponent extends StackPane{
     private double scale = 1.0;
     private int angle = 30;
     private int translation;
+    protected List<CardComponent> cardComponents;
 
     private StackPane content;
 
@@ -31,12 +36,12 @@ public class HandComponent extends StackPane{
         content.getChildren().clear();
         content.setAlignment(Pos.BOTTOM_CENTER);
 
-        List<CardComponent> cardComponents = new ArrayList<>();
+        cardComponents = new ArrayList<>();
         for(Card card : cards) cardComponents.add(card.getDrawer());
 
         int size = cards.size();
-        final int defaultAngle = this.angle + 10 * size / 2;
-        double angle = defaultAngle / (size - 1);
+        final int defaultAngle = size == 1 ? 0 : this.angle + 10 * size / 2;
+        double angle = size != 1 ? defaultAngle / (size - 1) : 0;
         int i = 0;
         for (CardComponent component : cardComponents){
             component.setScale(scale);
@@ -65,6 +70,10 @@ public class HandComponent extends StackPane{
         }
 
         content.getChildren().addAll(cardComponents);
+    }
+
+    public List<CardComponent> getCards(){
+        return cardComponents;
     }
 
     public void setCards(List<Card> c){

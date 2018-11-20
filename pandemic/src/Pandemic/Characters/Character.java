@@ -5,6 +5,7 @@ import Pandemic.Cards.CityCard;
 import Pandemic.Cards.EventCard;
 import Pandemic.Exceptions.*;
 import Pandemic.Core.Hand;
+import Pandemic.Players.Player;
 import Pandemic.Table.Field;
 import Pandemic.Core.Virus;
 import javafx.scene.paint.Color;
@@ -170,4 +171,5 @@ abstract public class Character implements Actions, Serializable {
     public Color getColor(){
         return this.character.color;
     }
+
 }

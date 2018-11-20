@@ -1,5 +1,6 @@
 package Pandemic.View.Components;
 
+import Pandemic.Cards.Card;
 import Pandemic.View.Effect;
 import Pandemic.View.Scenes.GameScene;
 import javafx.animation.TranslateTransition;
@@ -37,4 +38,6 @@ abstract public class CardComponent extends BorderPane {
         this.scale = scale;
         radius = new CornerRadii(10 * scale);
     }
+
+    abstract public Card getCard();
 }

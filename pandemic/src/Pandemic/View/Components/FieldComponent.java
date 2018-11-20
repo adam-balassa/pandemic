@@ -2,6 +2,7 @@ package Pandemic.View.Components;
 
 import Pandemic.Characters.Character;
 import Pandemic.Core.Virus;
+import Pandemic.Players.GraphicsPlayer;
 import Pandemic.Table.Field;
 import Pandemic.View.Effect;
 import Pandemic.View.Scenes.GameScene;
@@ -30,16 +31,18 @@ public class FieldComponent extends StackPane {
     private double scale = 1;
     private Color color;
     private List<CharacterComponent> characterComponents;
+    private GraphicsPlayer currentPlayer;
 
     public FieldComponent(Field f){
         this.field = f;
         this.color = GameScene.colorOfVirus(f.getColor());
         characterComponents = new ArrayList<>();
-        refresh();
+        Effect.setSize(this, width * scale, height* scale);
     }
 
-    public void refresh() {
-        this.getChildren().removeAll();
+    public void refresh(GraphicsPlayer newCurrentPlayer) {
+        this.currentPlayer = newCurrentPlayer;
+        this.getChildren().clear();
         characterComponents.clear();
         Effect.setSize(this, width * scale, height* scale);
         this.setAlignment(Pos.TOP_CENTER);
@@ -57,8 +60,16 @@ public class FieldComponent extends StackPane {
             centerCircle.setFill(new RadialGradient(0, 0, 0.5, 0.5, 1, true, CycleMethod.NO_CYCLE, stops));
         }
 
-        for(Character c: field.getCharacters())
-            characterComponents.add(new CharacterComponent(c.getColor()));
+        for(Character c: field.getCharacters()){
+            CharacterComponent character = new CharacterComponent(c.getColor());
+            character.setOnMouseClicked(e -> {
+                currentPlayer.action(
+                    GraphicsPlayer.Interaction.CHARACTERCLICK,
+                    new GraphicsPlayer.InteractionOptions.Builder().setCharacter(c).build()
+                );
+            });
+            characterComponents.add(character);
+        }
 
         int numOfCharacters = characterComponents.size();
         double distance = 14;
@@ -78,6 +89,12 @@ public class FieldComponent extends StackPane {
             RotateTransition transition = new RotateTransition(Duration.millis(200), virusPane);
             transition.setByAngle(-180);
             transition.play();
+        });
+        this.setOnMouseClicked(e -> {
+            currentPlayer.action(
+                    GraphicsPlayer.Interaction.FIELDCLICK,
+                    new GraphicsPlayer.InteractionOptions.Builder().setField(this.field).build()
+            );
         });
 
 

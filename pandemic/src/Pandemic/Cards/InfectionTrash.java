@@ -1,9 +1,6 @@
 package Pandemic.Cards;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class InfectionTrash extends Deck {
     public InfectionTrash(Collection<Card> cards) {

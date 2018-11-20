@@ -4,6 +4,7 @@ import Pandemic.Core.Events;
 import Pandemic.Core.Virus;
 import Pandemic.Exceptions.CannotPerformAction;
 import Pandemic.Exceptions.UnnecessaryAction;
+import Pandemic.Players.GraphicsPlayer;
 import Pandemic.Players.Player;
 import Pandemic.Table.Field;
 import Pandemic.Characters.Character;
@@ -139,6 +140,12 @@ public class EventCard extends Card implements Serializable {
             player = e;
             field = f;
             character = c;
+        }
+
+        public void add(EventOptions o){
+            if(o.field != null) this.field = o.field;
+            if(o.character != null) this.character = o.character;
+            if(o.player != null) this.player = o.player;
         }
 
         public static class Builder{

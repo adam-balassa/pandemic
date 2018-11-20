@@ -15,6 +15,7 @@ public interface IGame extends Events {
     void drop(Card c);
     boolean isAntidoteMade(Virus v);
     void endRound() throws EndOfGame;
+    void nextRound() throws EndOfGame;
     void createAntidote(Virus color) throws UnnecessaryAction;
     void undo();
 

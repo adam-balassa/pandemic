@@ -103,11 +103,18 @@ public class Effect {
         AnchorPane.setTopAnchor(component, 0d);
     }
 
+    public static void resetGrow(Node component){
+        AnchorPane.setRightAnchor(component, null);
+        AnchorPane.setLeftAnchor(component, null);
+        AnchorPane.setBottomAnchor(component, null);
+        AnchorPane.setTopAnchor(component, null);
+    }
+
     public static void grow(Node component, boolean top, boolean right, boolean bottom, boolean left){
-        if(right) AnchorPane.setRightAnchor(component, 0d);
-        if(left) AnchorPane.setLeftAnchor(component, 0d);
-        if(bottom)AnchorPane.setBottomAnchor(component, 0d);
-        if(top)AnchorPane.setTopAnchor(component, 0d);
+        AnchorPane.setRightAnchor(component, right ? 0d : null);
+        AnchorPane.setLeftAnchor(component, left ? 0d : null);
+        AnchorPane.setBottomAnchor(component, bottom ? 0d : null);
+        AnchorPane.setTopAnchor(component, top ? 0d : null);
     }
 
     public static void setSize(Pane component, double width, double height){

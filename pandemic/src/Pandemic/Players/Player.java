@@ -3,6 +3,7 @@ package Pandemic.Players;
 import Pandemic.Cards.Card;
 import Pandemic.Cards.CityCard;
 import Pandemic.Cards.EventCard;
+import Pandemic.Cards.InfectionTrash;
 import Pandemic.Core.Events;
 import Pandemic.Exceptions.CannotPerformAction;
 import Pandemic.Exceptions.EndOfGame;
@@ -122,7 +123,7 @@ public abstract class Player implements Hand, Events, Serializable {
     abstract public List<CityCard> forecast();
 
     @Override
-    abstract public List<CityCard> getTrash();
+    abstract public InfectionTrash getTrash();
 
     @Override
     abstract public void replaceCards(List<CityCard> c);

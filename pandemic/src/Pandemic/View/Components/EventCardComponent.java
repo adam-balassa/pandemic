@@ -1,5 +1,6 @@
 package Pandemic.View.Components;
 
+import Pandemic.Cards.Card;
 import Pandemic.Cards.EventCard;
 import Pandemic.View.Scenes.GameScene;
 import javafx.geometry.Insets;
@@ -64,5 +65,10 @@ public class EventCardComponent extends CardComponent {
 
 
         this.setCenter(center);
+    }
+
+    @Override
+    public Card getCard() {
+        return card;
     }
 }

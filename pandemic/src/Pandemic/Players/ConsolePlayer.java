@@ -3,6 +3,7 @@ package Pandemic.Players;
 import Pandemic.Cards.Card;
 import Pandemic.Cards.CityCard;
 import Pandemic.Cards.EventCard;
+import Pandemic.Cards.InfectionTrash;
 import Pandemic.Characters.Character;
 import Pandemic.Exceptions.*;
 import Pandemic.Core.IGame;
@@ -340,8 +341,8 @@ public class ConsolePlayer extends Player implements Serializable  {
     }
 
     @Override
-    public List<CityCard> getTrash() {
-        List<CityCard> cards = game.getTrash();
+    public InfectionTrash getTrash() {
+        List<CityCard> cards = game.getTrash().getCards();
         List<String> cmd;
         while(true){
             alert("Select the card to discard");
@@ -349,11 +350,13 @@ public class ConsolePlayer extends Player implements Serializable  {
             cmd = readCommand();
             try{
                 if(getCommand(cmd) != Command.CHOOSE) continue;
-                for(Iterator<CityCard> card = cards.iterator(); card.hasNext();)
-                    if(card.next().getName().equals(cmd.get(1))){
-                        card.remove();
-                        return cards;
+                for(Iterator<CityCard> card = cards.iterator(); card.hasNext();) {
+                    CityCard c = card.next();
+                    if (c.getName().equals(cmd.get(1))) {
+                        game.getTrash().removeCard(c);
+                        return null;
                     }
+                }
             }
             catch(PandemicException e){}
         }

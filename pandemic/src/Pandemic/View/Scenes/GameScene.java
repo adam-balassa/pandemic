@@ -57,12 +57,10 @@ public class GameScene extends PandemicScene{
         controller = new ControllerComponent();
         setControlButtonActions();
 
-        playerComponents = new ArrayList<>();
-        Player[] players = game.getPlayers();
-        for(Player p: players) playerComponents.add(new PlayerComponent((GraphicsPlayer)p));
-
         Map<String, Field> fields = game.getFields();
         table = new TableComponent(fields.values());
+
+        //table.setBackground(new Background(new BackgroundFill(Color.GREEN, null, null)));
 
         root.getChildren().addAll(main, alertBox = new AlertBoxComponent());
 
@@ -93,12 +91,15 @@ public class GameScene extends PandemicScene{
     }
 
     public void newRound(GraphicsPlayer player){
+        playerComponents = new ArrayList<>();
+        Player[] players = game.getPlayers();
+        for(Player p: players) playerComponents.add(new PlayerComponent((GraphicsPlayer)p));
+
         this.activePlayer = player;
         for(PlayerComponent p: playerComponents) {
             if (p.getPlayer() == player) {
                 activePlayerComponent = p;
             }
-            p.refresh();
         }
         controller.refresh(game.getBreakOuts(), game.getInfectionStatus());
         controller.setPlayer(activePlayer);
@@ -108,13 +109,16 @@ public class GameScene extends PandemicScene{
         center.getChildren().add(0, drawTable());
         center.getChildren().add(button);
         main.setCenter(center);
+        main.setBottom(null);
         main.setBottom(controller);
+        this.refresh();
         this.show();
     }
 
     public void refresh(){
         controller.refresh(activePlayer.getRemainingActions(), game.getAntidotes());
-        table.refresh();
+        table.refresh(activePlayer);
+        for(PlayerComponent pc: playerComponents) pc.refresh(activePlayer);
     }
 
     public void endGame(){
@@ -125,7 +129,7 @@ public class GameScene extends PandemicScene{
         });
     }
 
-    private void hide(){
+    public void hide(){
         Text t = (Text) hideButton.getChildren().get(1);
         int length = 250;
         RotateTransition rt = new RotateTransition(Duration.millis(length), t);
@@ -143,16 +147,16 @@ public class GameScene extends PandemicScene{
         tt4.setToY(controller.getMinHeight());
         st.setOnFinished(a -> {
             main.setBottom(null);
-            activePlayerComponent.hide();
+            this.activePlayerComponent.hide();
             PlayerComponent.disable(true);
-            activePlayerComponent.setTranslateY(0);
+            this.activePlayerComponent.setTranslateY(0);
             hideButton.setTranslateY(0);
         });
 
         st.play();
     }
 
-    private void show(){
+    public void show(){
         Text t = (Text) hideButton.getChildren().get(1);
         RotateTransition rt = new RotateTransition(Duration.millis(200), t);
         TranslateTransition tt = new TranslateTransition(Duration.millis(200), t);
@@ -193,7 +197,9 @@ public class GameScene extends PandemicScene{
 
         for(int i = 0; i < numOfPlayers; i++){
             PlayerComponent pc = playerComponents.get(i);
+            pc.setTranslateY(0);
             Effect.grow(pc, i == 2, i != 1, i == 0, i != 3);
+
             pc.hide();
             pc.setRotate(90 * i);
             pc.setTranslateY((i == 1 || i == 3) ? height / 2 - 220 : 0);
@@ -273,18 +279,28 @@ public class GameScene extends PandemicScene{
     private void setControlButtonActions(){
         Map<String, ControllerComponent.ControllButton> buttons = controller.getButtons();
         buttons.get("infection").setOnMouseClicked(e -> {
-            List<CityCard> cards = game.getTrash();
-            if(cards.size() != 0){
-                HandComponent hand = new HandComponent(cards);
-                hand.show();
-                root.getChildren().add(hand);
-                Effect.fadeIn(hand);
-                hand.setOnMouseClicked(f -> {
-                    Effect.fadeOut(hand).setOnFinished(g -> {
-                        this.root.getChildren().remove(hand);
-                    });
-                });
-            }
+            activePlayer.getTrash();
         });
+    }
+
+    public void openInfectionTrash(List<CityCard> cards){
+        if(cards.size() != 0){
+            HandComponent hand = new HandComponent(cards);
+            hand.show();
+            root.getChildren().add(hand);
+            Effect.fadeIn(hand);
+            for(CardComponent c : hand.getCards())
+                c.setOnMouseClicked(e -> {
+                    activePlayer.action(
+                        GraphicsPlayer.Interaction.INFECTIONTRASHCARDCLICK,
+                        new GraphicsPlayer.InteractionOptions.Builder().setCard(c.getCard()).build()); });
+            hand.setOnMouseClicked(f -> {
+                Effect.fadeOut(hand).setOnFinished(g -> {
+                    this.root.getChildren().remove(hand);
+                });
+                activePlayer.action(GraphicsPlayer.Interaction.OUTCLICK, null);
+            });
+
+        }
     }
 }

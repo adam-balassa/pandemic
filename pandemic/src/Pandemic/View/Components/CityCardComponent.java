@@ -1,5 +1,6 @@
 package Pandemic.View.Components;
 
+import Pandemic.Cards.Card;
 import Pandemic.Cards.CityCard;
 import Pandemic.View.Scenes.GameScene;
 import javafx.geometry.Insets;
@@ -64,6 +65,11 @@ public class CityCardComponent extends CardComponent{
 
         center.setTop(new VBox(textBox, populationBox));
         this.setCenter(center);
+    }
+
+    @Override
+    public Card getCard() {
+        return card;
     }
 }
 

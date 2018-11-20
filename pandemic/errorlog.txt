@@ -1,1 +1,2 @@
-23:38:22	EndOfGame	Game over
+19:11:14	InvalidParameter	Internal error occured
+19:11:16	InvalidParameter	Internal error occured

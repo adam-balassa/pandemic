@@ -77,8 +77,8 @@ public class Game implements IGame, Serializable{
     public void nextRound() throws EndOfGame{
         shallInfect = true;
         save();
+        players[player].add(new EventCard(EventCard.EventTypes.RESILENTPPULATION));
         players[player].round();
-        player = player == players.length - 1 ? 0 : player + 1;
     }
 
     public void reconstruct(Game previousStatus){
@@ -226,6 +226,8 @@ public class Game implements IGame, Serializable{
                 infect(1);
             }
         }
+
+        player = player == players.length - 1 ? 0 : player + 1;
     }
 
     @Override
@@ -312,8 +314,8 @@ public class Game implements IGame, Serializable{
     }
 
     @Override
-    public List<CityCard> getTrash() {
-        return infectionTrash.getCards();
+    public InfectionTrash getTrash() {
+        return infectionTrash;
     }
 
     @Override

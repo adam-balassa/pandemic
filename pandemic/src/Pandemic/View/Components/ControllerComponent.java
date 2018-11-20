@@ -69,6 +69,43 @@ public class ControllerComponent extends BorderPane {
         buttonsHolder.setSpacing(20);
         buttonsHolder.setAlignment(Pos.CENTER);
 
+        buttons.get("restart").setOnMouseClicked(e -> {
+            currentPlayer.action(
+                    GraphicsPlayer.Interaction.RESTARTCLICK,
+                    (new GraphicsPlayer.InteractionOptions.Builder()).build()
+            );
+        });
+        buttons.get("treat").setOnMouseClicked(e -> {
+            currentPlayer.action(
+                    GraphicsPlayer.Interaction.TREATCLCIK,
+                    (new GraphicsPlayer.InteractionOptions.Builder()).build()
+            );
+        });
+        buttons.get("share").setOnMouseClicked(e -> {
+            currentPlayer.action(
+                    GraphicsPlayer.Interaction.SHARECLICK,
+                    (new GraphicsPlayer.InteractionOptions.Builder()).build()
+            );
+        });
+        buttons.get("build").setOnMouseClicked(e -> {
+            currentPlayer.action(
+                    GraphicsPlayer.Interaction.BUILDCLICK,
+                    (new GraphicsPlayer.InteractionOptions.Builder()).build()
+            );
+        });
+        buttons.get("antidote").setOnMouseClicked(e -> {
+            currentPlayer.action(
+                    GraphicsPlayer.Interaction.ANTIDOTECLICK,
+                    (new GraphicsPlayer.InteractionOptions.Builder()).build()
+            );
+        });
+        buttons.get("pass").setOnMouseClicked(e -> {
+            currentPlayer.action(
+                    GraphicsPlayer.Interaction.PASSCLICK,
+                    (new GraphicsPlayer.InteractionOptions.Builder()).build()
+            );
+        });
+
         actions = new VBox();
         actions.setSpacing(10);
         actions.setAlignment(Pos.CENTER);
@@ -266,6 +303,7 @@ public class ControllerComponent extends BorderPane {
 
         static Map<String, ControllButton> getButtons(){
             Map<String, ControllButton> buttons = new HashMap<>(6);
+
             buttons.put("treat", new ControllButton("Treat", new Image("file:res/treat.png")));
             buttons.put("share", new ControllButton("Share", new Image("file:res/share.png")));
             buttons.put("build", new ControllButton("Build", new Image("file:res/build.png")));
