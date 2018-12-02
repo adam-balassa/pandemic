@@ -41,7 +41,7 @@ public class PlayerComponent extends HandComponent {
                 else
                     currentPlayer.action(
                         GraphicsPlayer.Interaction.OTHERCARDCLICK,
-                        new GraphicsPlayer.InteractionOptions.Builder().setCard(card.getCard()).build()
+                        new GraphicsPlayer.InteractionOptions.Builder().setPlayer(player).setCard(card.getCard()).build()
                     );
             });
     }

@@ -19,6 +19,9 @@ public class Table  implements Serializable {
         return fields.get(name);
     }
 
+    /**
+     * Initialization of the board
+     */
     private void createMap(){
         Field atlanta = createField("Atlanta", Virus.BLUE,  5.9, 8.1);
         Field chicago = createField("Chicago", Virus.BLUE, 5.1, 6.6);
@@ -130,10 +133,13 @@ public class Table  implements Serializable {
         return f;
     }
 
+    /**
+     * Returns a collection of cityCards for every field on the board
+     */
     public List<Card> getCityCards(){
         List<Card> cards = new ArrayList<>();
         for (Field f: fields.values()) {
-            cards.add(new CityCard(f, 0)); //BUG: population
+            cards.add(new CityCard(f, 0));
         }
         return cards;
     }

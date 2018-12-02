@@ -11,6 +11,11 @@ public class OperationExpert extends Character {
         super(CharacterType.OperationExpert, h, f);
     }
 
+    /**
+     * An Operation expert can build a research station by discard any card in their hands
+     * @returns how many actions did it take to perform this
+     * @throws CannotPerformAction
+     */
     @Override
     public int build() throws CannotPerformAction {
         if(hand.getCards().size() > 1) throw new AmbigousAction("Choose the card you'd like to discard");
@@ -18,6 +23,12 @@ public class OperationExpert extends Character {
         return 1;
     }
 
+    /**
+     * An Operation Expert moves similar as other characters, but can fly anywhere from a research station by discarding a card
+     * @param f the field where the character shall move
+     * @returns how many actions did it take to perform this
+     * @throws CannotPerformAction
+     */
     @Override
     public int move(Field f) throws CannotPerformAction {
 

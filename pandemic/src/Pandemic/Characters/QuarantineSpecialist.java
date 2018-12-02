@@ -10,6 +10,11 @@ public class QuarantineSpecialist extends Character {
         setQuarantine();
     }
 
+    /**
+     * A Quarantine Specialist sets a quarantine to the surrounding fields when its position is changed
+     * @param f
+     * @throws UnnecessaryAction
+     */
     @Override
     public void replace(Field f) throws UnnecessaryAction {
         this.removeQuarantine();

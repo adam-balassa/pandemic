@@ -10,6 +10,13 @@ public class Researcher extends Character {
         super(CharacterType.Researcher, h, f);
     }
 
+    /**
+     * A Researcher can give any card to an other character when standing on the same field
+     * @param c character
+     * @param card
+     * @return
+     * @throws CannotPerformAction
+     */
     @Override
     public int giveCard(Character c, CityCard card) throws CannotPerformAction {
         if(!this.field.getCharacters().contains(c))

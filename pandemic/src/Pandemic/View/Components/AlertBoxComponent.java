@@ -3,6 +3,7 @@ package Pandemic.View.Components;
 import Pandemic.Exceptions.CannotPerformAction;
 import Pandemic.Exceptions.PandemicException;
 import Pandemic.View.Effect;
+import javafx.animation.Transition;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -37,7 +38,7 @@ public class AlertBoxComponent extends StackPane {
                             AnchorPane a1 = new AnchorPane();
                             a1.setPrefHeight(30); a1.setPrefWidth(431);
                                 alertBoxButton = new Button("OK");
-                                alertBoxButton.setOnAction(e -> {Effect.fadeOut(this);});
+                                alertBoxButton.setOnAction(e -> { Transition t = Effect.fadeOut(this); t.play();});
                             a1.getChildren().add(alertBoxButton);
                         t1.getItems().add(a1);
                     b1.setBottom(t1);
@@ -45,7 +46,7 @@ public class AlertBoxComponent extends StackPane {
                         v1.setAlignment(Pos.CENTER_LEFT);
                         v1.setPrefHeight(200); v1.setPrefWidth(100); v1.setPadding(new Insets(1));
                             alertBoxText = new Label();
-                            alertBoxText.setPrefHeight(67); alertBoxText.setPrefWidth(452); alertBoxText.setWrapText(true);
+                            alertBoxText.setPrefHeight(80); alertBoxText.setPrefWidth(452); alertBoxText.setWrapText(true);
                             alertBoxText.setFont(Font.font(18)); alertBoxText.setPadding(new Insets(20));
                             Separator s2 = new Separator();
                             s2.setPrefWidth(200);
@@ -57,7 +58,6 @@ public class AlertBoxComponent extends StackPane {
                 alertBoxTitle.setContent(b1);
             s1.getChildren().add(alertBoxTitle);
         this.getChildren().add(s1);
-
     }
 
     public Button getButton(){

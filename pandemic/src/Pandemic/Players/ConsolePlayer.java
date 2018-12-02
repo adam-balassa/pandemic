@@ -254,7 +254,7 @@ public class ConsolePlayer extends Player implements Serializable  {
     }
 
     @Override
-    public void showInfection(CityCard card) {
+    public void showInfection(CityCard card, int maxInfection) {
         alert(card.getName() + " got infected");
     }
 
@@ -337,6 +337,7 @@ public class ConsolePlayer extends Player implements Serializable  {
             catch(PandemicException e){}
         }
         newOrder.add(cards.remove(0));
+        replaceCards(newOrder);
         return newOrder;
     }
 

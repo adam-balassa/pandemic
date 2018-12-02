@@ -11,6 +11,13 @@ public class Dispatcher extends Character {
         super(CharacterType.Dispatcher, h, f);
     }
 
+    /**
+     * A Dispatcher is able to move other characters on the board
+     * @param f the field where the given character shall be moved to
+     * @param c the character that is to be moved
+     * @returns how many actions did it take to perform this
+     * @throws CannotPerformAction
+     */
     @Override
     public int move(Field f, Character c) throws CannotPerformAction {
         if(c.getField().hasNeighbour(f)){

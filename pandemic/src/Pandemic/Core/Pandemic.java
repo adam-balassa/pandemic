@@ -26,6 +26,10 @@ public class Pandemic extends Application implements Saver {
         new Pandemic();
     }
 
+    /**
+     * JavaFX Application entry
+     * @param primaryStage
+     */
     @Override
     public void start(Stage primaryStage) {
         this.window = primaryStage;
@@ -45,6 +49,11 @@ public class Pandemic extends Application implements Saver {
         game.start();
     }
 
+    /**
+     * Starts a new game with graphics interface
+     * @param numOfPlayers
+     * @param difficulty
+     */
     public void startGraphicsApplication(int numOfPlayers, int difficulty){
         window.close();
         game = new Game(this);
@@ -60,8 +69,25 @@ public class Pandemic extends Application implements Saver {
         try{ game.nextRound(); }catch(EndOfGame e){}
     }
 
+    /**
+     * Loads a previously started game with a graphics interface
+     */
     public void loadGraphicsApplication(){
+        window.close();
+        this.game = new Game(this);
+        GameScene scene = new GameScene(game);
 
+        Game previousStatus = load();
+        players = new Player[previousStatus.getNumberOfPlayers()];
+
+        for(int i = 0; i < players.length; i++)
+            players[i] = new GraphicsPlayer(game, scene);
+        game.setPlayers(players);
+        game.reconstruct(previousStatus);
+        scene.init();
+        window.setScene(scene.getScene());
+        window.show();
+        try{ game.nextRound(); }catch(EndOfGame e){}
     }
 
     public void loadConsoleApplication(){
@@ -78,6 +104,9 @@ public class Pandemic extends Application implements Saver {
     }
 
 
+    /**
+     * Saves the game status into a file
+     */
     @Override
     public void save() {
         try {
@@ -91,6 +120,10 @@ public class Pandemic extends Application implements Saver {
         }
     }
 
+    /**
+     * Loads a game status from a file
+     * @return
+     */
     @Override
     public Game load() {
         ObjectInputStream is;

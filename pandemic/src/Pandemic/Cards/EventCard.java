@@ -33,6 +33,11 @@ public class EventCard extends Card implements Serializable {
         return type.getDescription();
     }
 
+    /**
+     * The event that happens if the card is played. Its type knows what to do, with the given options
+     * @param o the options that the user chose for playing this card
+     * @throws CannotPerformAction
+     */
     public void play(EventOptions o) throws CannotPerformAction{
         this.type.play(o);
     }
@@ -55,7 +60,7 @@ public class EventCard extends Card implements Serializable {
             @Override
             void play(EventOptions o) throws CannotPerformAction {
                 if(o.player == null) throw new CannotPerformAction("Choose a character to play this event card");
-                o.player.replaceCards(o.player.forecast());
+                o.player.forecast();
             }
         },
         SILENTNIGHT("Silent Night"){

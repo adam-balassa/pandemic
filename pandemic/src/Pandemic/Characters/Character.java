@@ -30,6 +30,13 @@ abstract public class Character implements Actions, Serializable {
     public void setHand(Hand h){
         hand = h;
     }
+
+    /**
+     * Moves the character to the specified field
+     * @param f the field where the character shall move
+     * @returns how many actions did it take to perform this
+     * @throws CannotPerformAction
+     */
     @Override
     public int move(Field f) throws CannotPerformAction{
         if(field.hasNeighbour(f)){
@@ -62,11 +69,25 @@ abstract public class Character implements Actions, Serializable {
         throw new CannotPerformAction("You are not available to move to " + f.getName());
     }
 
+    /**
+     * Moves the specified character to the specified field
+     * A regular character is not capable of performing this action
+     * @param f the field where the given character shall be moved to
+     * @param c the character that is to be moved
+     * @returns how many actions did it take to perform this
+     * @throws CannotPerformAction
+     */
     @Override
     public int move(Field f, Character c) throws CannotPerformAction{
         throw new CharacterCannotPerformAction("Your character doesn't have the ability to move other players");
     }
 
+    /**
+     * Removes a virus from the field that the character stands on
+     * @param v the color of the virus that the user wants to remove
+     * @returns how many actions did it take to perform this
+     * @throws CannotPerformAction when there's no virus of the given color on the field
+     */
     @Override
     public int clean(Virus v) throws CannotPerformAction{
         if(hand.isAntidoteMade(v)){
@@ -77,11 +98,21 @@ abstract public class Character implements Actions, Serializable {
         return 1;
     }
 
+    /**
+     * Removes a virus same to the field's color
+     * @returns how many actions did it take to perform this
+     * @throws CannotPerformAction
+     */
     @Override
     public int clean() throws CannotPerformAction{
         return clean(this.field.getColor());
     }
 
+    /**
+     * Builds a research station on the field that the character stands on
+     * @returns how many actions did it take to perform this
+     * @throws CannotPerformAction
+     */
     @Override
     public int build() throws CannotPerformAction{
         Card c = this.hand.hasCard(this.field);
@@ -91,6 +122,11 @@ abstract public class Character implements Actions, Serializable {
         return 1;
     }
 
+    /**
+     * Creates an antidote
+     * @returns how many actions did it take to perform this
+     * @throws CannotPerformAction when the character isn't standing on a research station or doesn't have enough cards
+     */
     @Override
     public int antidote()throws CannotPerformAction{
         if(!this.field.hasStation()) throw new CannotPerformAction("You can only create antidote in a research station");
@@ -105,11 +141,25 @@ abstract public class Character implements Actions, Serializable {
         return 1;
     }
 
+    /**
+     * Draws an event from the main trash
+     * Only Contingency Planners are allowed to perform this action
+     * @param card the card that is to be drawn
+     * @returns how many actions did it take to perform this
+     * @throws CannotPerformAction
+     */
     @Override
     public int getEvent(EventCard card) throws CannotPerformAction{
         throw new CharacterCannotPerformAction("Your character doesn't have the ability to get event cards from trash");
     }
 
+    /**
+     * Gives the specified card to the specified character
+     * @param c character
+     * @param card
+     * @returns how many actions did it take to perform this
+     * @throws CannotPerformAction when the two characters aren't standing on the proper field
+     */
     @Override
     public int giveCard(Character c, CityCard card) throws CannotPerformAction {
         if(card.getCity() != this.field || !this.field.getCharacters().contains(c))
@@ -119,15 +169,29 @@ abstract public class Character implements Actions, Serializable {
         return 1;
     }
 
+    /**
+     * Plays the specified event
+     * @param e the event card that is to be played
+     * @throws CannotPerformAction
+     */
     @Override
     public void playEvent(EventCard e) throws CannotPerformAction {
         hand.playEvent(e);
     }
 
+    /**
+     * Called when the character recieves a card from an other
+     * @param card
+     */
     final void recieveCard(CityCard card){
         hand.add(card);
     }
 
+    /**
+     * Modifies the character's position on the board
+     * @param f
+     * @throws UnnecessaryAction
+     */
     public void replace(Field f) throws UnnecessaryAction{
         if(field == f) throw new UnnecessaryAction("Your character is already in " + f.getName());
         field.stepFrom(this);
@@ -135,6 +199,12 @@ abstract public class Character implements Actions, Serializable {
         field.step(this);
     }
 
+
+    /**
+     * Groups the player's cards by their colors
+     * @param number
+     * @returns the groupped cards if their amount matches the given number
+     */
     protected Collection<Card> similarCards(int number){
         HashMap<Virus, Collection<Card>> colors = new HashMap<>();
 

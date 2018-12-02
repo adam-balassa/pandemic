@@ -1,13 +1,16 @@
 package Pandemic.View.Components;
 
 import Pandemic.Cards.Card;
+import Pandemic.View.Effect;
 import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
@@ -23,6 +26,7 @@ public class HandComponent extends StackPane{
     private int angle = 30;
     private int translation;
     protected List<CardComponent> cardComponents;
+    private Pane background;
 
     private StackPane content;
 
@@ -35,6 +39,9 @@ public class HandComponent extends StackPane{
         content.setTranslateY(translation * scale);
         content.getChildren().clear();
         content.setAlignment(Pos.BOTTOM_CENTER);
+
+        background = new Pane();
+        Effect.grow(background);
 
         cardComponents = new ArrayList<>();
         for(Card card : cards) cardComponents.add(card.getDrawer());
@@ -68,7 +75,7 @@ public class HandComponent extends StackPane{
             component.setCursor(Cursor.HAND);
             i++;
         }
-
+        content.getChildren().add(background);
         content.getChildren().addAll(cardComponents);
     }
 
@@ -96,5 +103,9 @@ public class HandComponent extends StackPane{
 
     public void setScale(double scale){
         this.scale = scale;
+    }
+
+    public Pane getBackside(){
+        return background;
     }
 }

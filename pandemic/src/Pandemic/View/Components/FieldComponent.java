@@ -53,7 +53,7 @@ public class FieldComponent extends StackPane {
         centerCircle.setStroke(color);
         centerCircle.setStrokeWidth(1);
         Stop[] stops = new Stop[]{
-                new Stop(0,  Color.WHITESMOKE),
+                new Stop(0,  Color.color(0.9, 0.9, 0.9, 0.8)),
                 new Stop(1, color)
         };
         if(!this.field.hasStation()){
@@ -72,25 +72,27 @@ public class FieldComponent extends StackPane {
         }
 
         int numOfCharacters = characterComponents.size();
-        double distance = 14;
+        double distance = 8;
         for(int i = 0; i < numOfCharacters; i++){
-            characterComponents.get(i).setTranslateX(distance * (i - 1) / -2);
-            characterComponents.get(i).setTranslateY(-1);
+            CharacterComponent character = characterComponents.get(i);
+            character.setTranslateX(distance * (i - (numOfCharacters - 1.0) / 2.0));
+            character.setTranslateY(-1);
+            character.setCursor(Cursor.HAND);
         }
 
         StackPane virusPane = new StackPane();
-        this.setCursor(Cursor.HAND);
-        this.setOnMouseEntered(e -> {
+        center.setCursor(Cursor.HAND);
+        center.setOnMouseEntered(e -> {
             RotateTransition transition = new RotateTransition(Duration.millis(200), virusPane);
             transition.setByAngle(180);
             transition.play();
         });
-        this.setOnMouseExited(e -> {
+        center.setOnMouseExited(e -> {
             RotateTransition transition = new RotateTransition(Duration.millis(200), virusPane);
             transition.setByAngle(-180);
             transition.play();
         });
-        this.setOnMouseClicked(e -> {
+        centerCircle.setOnMouseClicked(e -> {
             currentPlayer.action(
                     GraphicsPlayer.Interaction.FIELDCLICK,
                     new GraphicsPlayer.InteractionOptions.Builder().setField(this.field).build()

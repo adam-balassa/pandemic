@@ -1,2 +1,5 @@
-19:11:14	InvalidParameter	Internal error occured
-19:11:16	InvalidParameter	Internal error occured
+08:40:22	CannotPerformAction	You need 5 cards with matching colors to create an antidote
+08:40:22	UnnecessaryAction	There is no blue virus in Atlanta
+08:40:22	CharacterCannotPerformAction	Your character doesn't have the ability to get event cards from trash
+08:40:22	CharacterCannotPerformAction	Your character doesn't have the ability to move other players
+08:40:22	AmbigousAction	You can take either private or public plane

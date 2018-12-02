@@ -2,6 +2,8 @@ package Pandemic.View;
 
 import Pandemic.View.Components.CardComponent;
 import javafx.animation.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point3D;
 import javafx.scene.Node;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Effect {
+    private static boolean transitionPlaying;
     public static void fadeIn(Parent component){
         FadeTransition transition = new FadeTransition(Duration.millis(200), component);
         TranslateTransition transition2 = new TranslateTransition(Duration.millis(200), component);
@@ -37,23 +40,21 @@ public class Effect {
     public static Transition fadeOut(Parent component){
         FadeTransition transition = new FadeTransition(Duration.millis(200), component);
         TranslateTransition transition2 = new TranslateTransition(Duration.millis(200), component);
+        ParallelTransition pt = new ParallelTransition(transition, transition2);
 
         transition.setFromValue(1.0);
         transition.setToValue(0.0);
-        transition.setOnFinished( e -> { component.setVisible(false); });
         transition2.setInterpolator(Interpolator.EASE_IN);
 
         transition2.setFromY(0);
         transition2.setToY(-30);
         transition2.setInterpolator(Interpolator.EASE_IN);
 
-        transition.play();
-        transition2.play();
-
-        return transition;
+        pt.setOnFinished( e -> { component.setVisible(false); });
+        return pt;
     }
 
-    public static void drawCard(Node card, Scene scene){
+    public static Transition drawCard(Node card, Scene scene){
         RotateTransition flipping = new RotateTransition(Duration.millis(700), card);
         flipping.setAxis(new Point3D(-100,  0, 0));
         flipping.setFromAngle(-90);
@@ -68,8 +69,8 @@ public class Effect {
 
         TranslateTransition moving = new TranslateTransition(Duration.millis(700), card);
         Bounds position = card.localToScene(card.getLayoutBounds());
-        moving.setFromY(scene.getHeight() / 2 - (position.getMinY() + position.getMaxY()) / 2);
-        moving.setToY(0);
+        moving.setFromY(scene.getHeight() / 2 - (position.getMinY() + position.getMaxY()) / 2 - scene.getHeight() / 2);
+        moving.setToY(- scene.getHeight() / 2);
         moving.setFromZ(200);
         moving.setToZ(0);
         moving.setInterpolator(new Interpolator() {
@@ -78,9 +79,7 @@ public class Effect {
                 return t * t;
             }
         });
-
-        ParallelTransition transition = new ParallelTransition(flipping, moving);
-        transition.play();
+        return new ParallelTransition(flipping, moving);
     }
 
     public static Paint gradient(Color color1, Color color2, int numOfStops, boolean linear, boolean dir){

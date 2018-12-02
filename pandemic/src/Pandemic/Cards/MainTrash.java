@@ -10,6 +10,9 @@ public class MainTrash extends Deck{
         super(cards);
     }
 
+    /**
+     * @returns the Event Cards from the deck
+     */
     public List<EventCard> getEvents(){
         List<EventCard> cards = new ArrayList<>();
         for(Card card : deck){
@@ -18,6 +21,10 @@ public class MainTrash extends Deck{
         return cards;
     }
 
+    /**
+     * An event card can be drawn from any position
+     * @param c
+     */
     public void drawEvent(EventCard c){
         for(Iterator<Card> i = deck.listIterator(); i.hasNext();){
             if(i.next() == c) {

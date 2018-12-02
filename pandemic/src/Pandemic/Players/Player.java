@@ -60,6 +60,10 @@ public abstract class Player implements Hand, Events, Serializable {
         character = c;
     }
 
+    /**
+     * copies the properties of an other player
+     * @param previousStatus
+     */
     public void reconstruct(Player previousStatus){
         cards = previousStatus.cards;
         character = previousStatus.character;
@@ -86,13 +90,19 @@ public abstract class Player implements Hand, Events, Serializable {
         this.add(c);
     }
 
+    /**
+     * Checks if the player doesn't have too many cards in hand
+     */
     public void finish(){
         while(this.cards.size() > 7)
             hasToDrop();
     }
 
+    /**
+     * Called when a player has too many cards in hand
+     */
     abstract protected void hasToDrop();
-    abstract public void showInfection(CityCard card);
+    abstract public void showInfection(CityCard card, int maxInfection);
 
     /**
      * helper functions for a player
@@ -105,15 +115,17 @@ public abstract class Player implements Hand, Events, Serializable {
         return null;
     }
 
+    /**
+     * decreases the amount of remaining actions
+     * @param i
+     * @throws EndRound
+     */
     protected void useAction(int i) throws EndRound{
         if(i == 0) return;
         actions -= i;
         if(actions == 0) throw new EndRound();
     }
 
-    /**********************
-     ******* EVENTS *******
-     *********************/
     @Override
     public void dontInfect() {
         game.dontInfect();
@@ -170,6 +182,11 @@ public abstract class Player implements Hand, Events, Serializable {
         this.drop(c);
     }
 
+    /**
+     * If the player has a Card for the Specified field, it returns it
+     * @param f
+     * @return
+     */
     @Override
     public Card hasCard(Field f) {
         if(f == null) return null;
@@ -186,6 +203,5 @@ public abstract class Player implements Hand, Events, Serializable {
         game.createAntidote(v);
     }
 
-    // getter
     public String getName(){ return name; }
 }

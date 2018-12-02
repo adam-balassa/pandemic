@@ -18,6 +18,7 @@ public class CityCard extends Card implements Comparable<CityCard>, Serializable
         city = f;
     }
 
+
     public Field getCity() {
         return city;
     }

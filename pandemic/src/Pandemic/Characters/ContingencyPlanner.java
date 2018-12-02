@@ -16,15 +16,23 @@ public class ContingencyPlanner extends Character implements Serializable {
         eventCard = null;
     }
 
+    /**
+     * A Contingency Planner is able to draw event cards from the main trash
+     * @param card the card that is to be drawn
+     * @returns how many actions did it take to perform this
+     * @throws CannotPerformAction
+     */
     @Override
     public int getEvent(EventCard card) throws CannotPerformAction {
-        return super.getEvent(card);
+        if(eventCard != null) throw new CannotPerformAction("You already have an event card");
+        eventCard = card;
+        hand.add(card);
+        return 1;
     }
 
     @Override
     public void playEvent(EventCard e) throws CannotPerformAction {
         if(e == eventCard){
-            hand.add(e);
             eventCard = null;
         }
         super.playEvent(e);

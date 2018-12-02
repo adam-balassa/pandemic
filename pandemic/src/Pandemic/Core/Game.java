@@ -27,7 +27,7 @@ public class Game implements IGame, Serializable{
 
     transient private Saver saver;
 
-    Game(Saver saver){
+    public Game(Saver saver){
         player = 0;
         breakOuts = 0;
         infectionStatus = 1;
@@ -40,7 +40,7 @@ public class Game implements IGame, Serializable{
     /*******************************
      **** GAME INITIALIZATION *****
      ******************************/
-    void initialize(int epidemicCards){
+    public void initialize(int epidemicCards){
         table = new Table();
         Field atlanta = table.getField("Atlanta");
 
@@ -59,10 +59,14 @@ public class Game implements IGame, Serializable{
         setInfection();
     }
 
+    /**
+     * Called when the main loop shall be started
+     */
     void start(){
         while(true){
             try{
                 this.nextRound();
+                this.finishRound();
             }
             catch(EndOfGame endOfGame){
                 endGame();
@@ -70,17 +74,24 @@ public class Game implements IGame, Serializable{
         }
     }
 
-    void setPlayers(Player[] players){
+    public void setPlayers(Player[] players){
         this.players = players;
     }
 
+    /**
+     * Prepares the next round for the next player
+     * @throws EndOfGame
+     */
     public void nextRound() throws EndOfGame{
         shallInfect = true;
         save();
-        players[player].add(new EventCard(EventCard.EventTypes.RESILENTPPULATION));
         players[player].round();
     }
 
+    /**
+     * Copies the propriate properties of a Game in an other (previous) status
+     * @param previousStatus
+     */
     public void reconstruct(Game previousStatus){
         table = previousStatus.table;
         mainDeck = previousStatus.mainDeck;
@@ -169,42 +180,60 @@ public class Game implements IGame, Serializable{
         System.exit(0);
     }
 
+    /**
+     * Saves the current status of the game
+     */
     private void save(){
         saver.save();
     }
 
-
-    /*******************************
-     ***** GAME RESPONIBILITIES *****
-     ******************************/
+    /**
+     * Chooses a random city, and infects it with the given amount of virus
+     * @param amount
+     * @throws EndOfGame
+     */
     private void infect(int amount)throws EndOfGame{
         int breakOuts = 0;
         CityCard infection = (CityCard) infectionDeck.draw();
         Field city = infection.getCity();
         for (int i = 0; i < amount; i++) breakOuts = city.infect();
         infectionTrash.add(infection);
-        players[player].showInfection(infection);
+        players[player].showInfection(infection, infectionStatus <= 3 ? 2 : infectionStatus <= 5 ? 3 : 4);
         addBreakOuts(breakOuts);
     }
 
+    /**
+     * Draws a card from the main deck and gives it to the player on round
+     * @throws EndOfGame
+     */
     private void draw() throws EndOfGame{
         Card c = this.mainDeck.draw();
         c.draw(players[player]);
     }
 
+    /**
+     * Modifies the amount of breakouts
+     * @param breakOuts
+     * @throws EndOfGame
+     */
     private void addBreakOuts(int breakOuts) throws EndOfGame {
         this.breakOuts += breakOuts;
         if(breakOuts > 7) throw new EndOfGame("Too many breakouts");
     }
 
-    /**********************
-     ******* IGAME *******
-     *********************/
+    /**
+     * Adds the given card to the main trash
+     * @param c
+     */
     @Override
     public void drop(Card c) {
         mainTrash.add(c);
     }
 
+    /**
+     * @param v
+     * @returns true if the antidote is made for the given type of Virus
+     */
     @Override
     public boolean isAntidoteMade(Virus v) {
         for (Virus antidote: antidotes) {
@@ -213,13 +242,24 @@ public class Game implements IGame, Serializable{
         return false;
     }
 
+    /**
+     * Draws cards for the player on round
+     * @throws EndOfGame
+     */
     @Override
     public void endRound() throws EndOfGame{
         draw();
         draw();
 
         players[player].finish();
+    }
 
+    /**
+     * Sets the new player and infects increases the infection level of the board
+     * @throws EndOfGame
+     */
+    @Override
+    public void finishRound() throws EndOfGame {
         if(shallInfect){
             int numToInfect = infectionStatus <= 3 ? 2 : infectionStatus <= 5 ? 3 : 4;
             for (int i = 0; i < numToInfect; i++) {
@@ -230,6 +270,11 @@ public class Game implements IGame, Serializable{
         player = player == players.length - 1 ? 0 : player + 1;
     }
 
+    /**
+     * When called, the antidote from the sepcified color will be made
+     * @param color
+     * @throws UnnecessaryAction if it's already made
+     */
     @Override
     public void createAntidote(Virus color) throws UnnecessaryAction {
         if(!antidotes.add(color))
@@ -241,21 +286,44 @@ public class Game implements IGame, Serializable{
         return table.getField(cityName);
     }
 
+    /**
+     * @returns the events from the maintrash
+     */
     @Override
     public List<EventCard> getEvents() {
         return mainTrash.getEvents();
     }
 
+    /**
+     * draws an eventCard from the mainTrash
+     * @param eventCard
+     */
     @Override
     public void getEvent(EventCard eventCard) {
         mainTrash.drawEvent(eventCard);
     }
 
+    /**
+     * draws an eventCard from the mainTrash
+     * @param eventCard
+     */
+    @Override
+    public void drawEvent(EventCard eventCard) {
+        mainTrash.drawEvent(eventCard);
+    }
+
+    /**
+     * returns a Map of the board with the Fields name as keys
+     * @return
+     */
     @Override
     public Map<String, Field> getFields() {
         return table.getFields();
     }
 
+    /**
+     * Loads the previously saved status of the game
+     */
     @Override
     public void undo() {
         Game previousStatus = saver.load();
@@ -285,15 +353,18 @@ public class Game implements IGame, Serializable{
         return antidotes;
     }
 
-
-    /**********************
-     ******* EVENTS *******
-     *********************/
+    /**
+     * When called, the infection level of the board will not be increased this round
+     */
     @Override
     public void dontInfect() {
         shallInfect = false;
     }
 
+    /**
+     * Executes forecast event
+     * @return
+     */
     @Override
     public List<CityCard> forecast() {
         List<CityCard> cards = new ArrayList<>(6);
@@ -307,6 +378,10 @@ public class Game implements IGame, Serializable{
         }
     }
 
+    /**
+     * After forecast, the reordered cards shall be replaced to the infectiondeck
+     * @param cards
+     */
     @Override
     public void replaceCards(List<CityCard> cards) {
         for (Card card: cards)
@@ -318,6 +393,10 @@ public class Game implements IGame, Serializable{
         return infectionTrash;
     }
 
+    /**
+     * Called when an epidemic card is drawn
+     * @throws EndOfGame
+     */
     @Override
     public void epidemic() throws EndOfGame {
         infectLastCity();
@@ -326,6 +405,10 @@ public class Game implements IGame, Serializable{
         infectionTrash.empty();
     }
 
+    /**
+     * Draws the last city of the infection deck and infects it with 3 new virus
+     * @throws EndOfGame
+     */
     private void infectLastCity() throws EndOfGame{
         CityCard c = infectionDeck.drawLast();
         infectionTrash.add(c);

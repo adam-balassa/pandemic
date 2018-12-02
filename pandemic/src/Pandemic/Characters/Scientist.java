@@ -12,6 +12,11 @@ public class Scientist extends Character{
         super(CharacterType.Scientist, h, f);
     }
 
+    /**
+     * A Scientist needs only 4 cards of the same color to make an antidote
+     * @returns how many actions did it take to perform this
+     * @throws CannotPerformAction
+     */
     @Override
     public int antidote() throws CannotPerformAction {
         if(!this.field.hasStation()) throw new CannotPerformAction("You can only create antidote in a research station");

@@ -2,6 +2,7 @@ package Pandemic.View.Scenes;
 import Pandemic.Cards.Card;
 import Pandemic.Cards.CityCard;
 import Pandemic.Core.Game;
+import Pandemic.Core.Hand;
 import Pandemic.Core.IGame;
 import Pandemic.Core.Virus;
 import Pandemic.Exceptions.EndOfGame;
@@ -13,10 +14,12 @@ import Pandemic.View.Components.*;
 import Pandemic.View.Effect;
 import Pandemic.View.PandemicScene;
 import javafx.animation.*;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -39,6 +42,7 @@ public class GameScene extends PandemicScene{
     private TableComponent table;
     private Pane hideButton;
     private AlertBoxComponent alertBox;
+    private HandComponent hand;
 
     public GameScene(Game game) {
         this.game = game;
@@ -48,6 +52,9 @@ public class GameScene extends PandemicScene{
         root = new StackPane();
         ((StackPane)root).setAlignment(Pos.CENTER);
         main = new BorderPane();
+        root.setBackground(new Background(new BackgroundImage(new Image("file:res/table.png"),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER, new BackgroundSize(1, 1, true, true, false, true))));
 
         Effect.grow(main);
 
@@ -119,6 +126,12 @@ public class GameScene extends PandemicScene{
         controller.refresh(activePlayer.getRemainingActions(), game.getAntidotes());
         table.refresh(activePlayer);
         for(PlayerComponent pc: playerComponents) pc.refresh(activePlayer);
+    }
+
+    public void restart(){
+        Map<String, Field> fields = game.getFields();
+        table = new TableComponent(fields.values());
+        this.newRound(activePlayer);
     }
 
     public void endGame(){
@@ -279,28 +292,72 @@ public class GameScene extends PandemicScene{
     private void setControlButtonActions(){
         Map<String, ControllerComponent.ControllButton> buttons = controller.getButtons();
         buttons.get("infection").setOnMouseClicked(e -> {
-            activePlayer.getTrash();
+            activePlayer.action(
+                    GraphicsPlayer.Interaction.INFECTIONTRASHBUTTONCLICK,
+                    new GraphicsPlayer.InteractionOptions.Builder().build());
+        });
+
+        buttons.get("main").setOnMouseClicked(e -> {
+            activePlayer.action(
+                    GraphicsPlayer.Interaction.MAINTRASHBUTTONCLICK,
+                    new GraphicsPlayer.InteractionOptions.Builder().build());
         });
     }
 
-    public void openInfectionTrash(List<CityCard> cards){
+    public void openInfectionTrash(List<? extends Card> cards, GraphicsPlayer.Interaction interaction){
         if(cards.size() != 0){
-            HandComponent hand = new HandComponent(cards);
+            hand = new HandComponent(cards);
             hand.show();
             root.getChildren().add(hand);
             Effect.fadeIn(hand);
             for(CardComponent c : hand.getCards())
                 c.setOnMouseClicked(e -> {
                     activePlayer.action(
-                        GraphicsPlayer.Interaction.INFECTIONTRASHCARDCLICK,
+                        interaction,
                         new GraphicsPlayer.InteractionOptions.Builder().setCard(c.getCard()).build()); });
-            hand.setOnMouseClicked(f -> {
-                Effect.fadeOut(hand).setOnFinished(g -> {
-                    this.root.getChildren().remove(hand);
+            hand.getBackside().setOnMouseClicked(f -> {
+                Transition t = Effect.fadeOut(hand);
+                t.setOnFinished(e -> {
+                    removeHand();
                 });
+                t.play();
                 activePlayer.action(GraphicsPlayer.Interaction.OUTCLICK, null);
             });
 
         }
+    }
+
+    public void removeHand(){
+        this.root.getChildren().remove(hand);
+    }
+
+    public HandComponent getHand(){
+        return hand;
+    }
+
+    public void draw(List<Card> drawn, List<Card> infected){
+        final HandComponent drawnCards = new HandComponent(drawn);
+        final HandComponent infectedCards = new HandComponent(infected);
+        drawnCards.show();
+        infectedCards.show();
+
+        root.getChildren().add(drawnCards);
+        Transition draw1 = Effect.drawCard(drawnCards, scene);
+        Transition wait1 = new PauseTransition(Duration.millis(2800));
+        FadeTransition fade1 = new FadeTransition(Duration.millis(200), drawnCards);
+        fade1.setFromValue(1); fade1.setToValue(2);
+        fade1.setOnFinished(e -> {
+            root.getChildren().remove(drawnCards);
+            root.getChildren().add(infectedCards);
+        });
+
+        Transition draw2 = Effect.drawCard(infectedCards, scene);
+        Transition wait2 = new PauseTransition(Duration.millis(2800));
+        FadeTransition fade2 = new FadeTransition(Duration.millis(200), infectedCards);
+        fade2.setFromValue(1); fade2.setToValue(2);
+        fade2.setOnFinished(e -> { root.getChildren().remove(infectedCards); });
+
+        SequentialTransition drawing = new SequentialTransition(new PauseTransition(Duration.millis(1000)), draw1, wait1, fade1, draw2, wait2, fade2);
+        drawing.play();
     }
 }

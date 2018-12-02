@@ -32,24 +32,45 @@ public class Field implements Serializable {
         neighbours = new ArrayList<>();
     }
 
+    /**
+     * Called for the initaization for the board
+     * @param field
+     * @return
+     */
     public Field connect(Field field){
         connectToMe(field);
         field.connectToMe(this);
         return this;
     }
 
+    /**
+     * similat to connect
+     * @param field
+     */
     private void connectToMe(Field field){
         neighbours.add(field);
     }
 
+    /**
+     * Called when a character modifies its position to this field
+     * @param c
+     */
     public void step(Character c){
         this.characters.add(c);
     }
 
+    /**
+     * Called when a character modifies its position from this field
+     * @param c
+     */
     public void stepFrom(Character c){
         this.characters.remove(c);
     }
 
+    /**
+     * increases the infection level on this field
+     * @return
+     */
     public int infect(){
         int breakOuts = infect(this.color);
         this.endPhase();
@@ -67,6 +88,11 @@ public class Field implements Serializable {
         return 0;
     }
 
+    /**
+     * Called when there would be more than 3 virus on the field
+     * @param v
+     * @return
+     */
     private int breakOut(Virus v){
         if(this.brokeOut) return 0;
         this.brokeOut = true;
@@ -77,6 +103,9 @@ public class Field implements Serializable {
         return outBreaks;
     }
 
+    /**
+     * Called when a chain of infections ended
+     */
     private void endPhase(){
         if(!this.brokeOut) return;
         this.brokeOut = false;
@@ -84,6 +113,10 @@ public class Field implements Serializable {
             neighbour.endPhase();
     }
 
+    /**
+     * removes a virus from the field
+     * @throws UnnecessaryAction
+     */
     public void clear() throws UnnecessaryAction {
         clear(this.color);
     }
@@ -93,6 +126,11 @@ public class Field implements Serializable {
             throw new UnnecessaryAction("There is no " + v.getName() + " virus in " + name);
     }
 
+    /**
+     * Removes every virus from the field
+     * @param v
+     * @throws UnnecessaryAction
+     */
     public void clearAll(Virus v) throws UnnecessaryAction{
         boolean found = false;
         for(Iterator<Virus> virus = infection.iterator(); virus.hasNext();)
@@ -103,6 +141,10 @@ public class Field implements Serializable {
         if(!found) throw new UnnecessaryAction("There is no " + v.getName() + " virus in " + name);
     }
 
+    /**
+     * sets a research station on the field
+     * @throws UnnecessaryAction
+     */
     public void build()throws UnnecessaryAction{
         if(station) throw new UnnecessaryAction("A station is already built in " + this.name);
         station = true;
@@ -113,6 +155,7 @@ public class Field implements Serializable {
         return neighbours.toArray(fields);
     }
 
+
     public void setQuarantine(){
         this.quarantine = true;
     }
@@ -121,6 +164,10 @@ public class Field implements Serializable {
         this.quarantine = false;
     }
 
+    /**
+     * @param v
+     * @returns the amount of the specified virus on this field
+     */
     private int count(Virus v){
         int i = 0;
         for (Virus virus : infection)
@@ -151,6 +198,9 @@ public class Field implements Serializable {
         return characters;
     }
 
+    /**
+     * groups the virus by their color and returns it
+     */
     public Map<Virus, Integer> getInfection(){
         Map<Virus, Integer> infections = new HashMap<>();
         infections.put(Virus.BLUE, this.count(Virus.BLUE));

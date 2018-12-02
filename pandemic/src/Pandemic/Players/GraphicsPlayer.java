@@ -1,30 +1,53 @@
 package Pandemic.Players;
 
-import Pandemic.Cards.Card;
-import Pandemic.Cards.CityCard;
-import Pandemic.Cards.EventCard;
-import Pandemic.Cards.InfectionTrash;
+import Pandemic.Cards.*;
 import Pandemic.Characters.Character;
 import Pandemic.Core.Events;
 import Pandemic.Core.IGame;
 import Pandemic.Core.Pandemic;
 import Pandemic.Exceptions.*;
 import Pandemic.Table.Field;
+import Pandemic.View.Components.CardComponent;
 import Pandemic.View.Scenes.GameScene;
-import javafx.scene.layout.StackPane;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class GraphicsPlayer extends Player implements Serializable {
 
+    /**
+     * The graphics interface of the game
+     */
     transient private GameScene graphics;
+    /**
+     * modified when a user interaction shall be a specified series of events
+     */
     transient private State waitingState;
+    /**
+     * The specification of an event that is being played
+     */
     transient private EventCard.EventOptions setEventOptions;
-    transient private EventCard pendingEvent;
+    /**
+     * The specification of an interaction that includes a series of events
+     */
     transient private InteractionOptions setInteractionOptions;
+    /**
+     * The type of interaction that is in progress
+     */
+    transient private Interaction setInteraction;
+    /**
+     * A flag for an event if it's done
+     */
+    transient private boolean eventReady;
     private boolean onRound = false;
+
+    /**
+     * A collection of cards that were drawn at the end of the round
+     */
+    private List<Card> drawnCards;
+    private List<Card> infectedCards = new ArrayList<>(4);
 
     public GraphicsPlayer(IGame g, GameScene graphicsContext) {
         super(g);
@@ -37,6 +60,8 @@ public class GraphicsPlayer extends Player implements Serializable {
     @Override
     public void round() throws EndOfGame {
         super.round();
+        drawnCards =  new ArrayList<>(2);
+        infectedCards = new ArrayList<>(4);
         graphics.newRound(this);
         graphics.message("New round started for " + character.getName());
         onRound = true;
@@ -44,46 +69,105 @@ public class GraphicsPlayer extends Player implements Serializable {
 
     @Override
     protected void hasToDrop() {
-
+        waitingState = State.FINISHROUND;
+        graphics.message("You need to drop a card");
     }
 
     @Override
-    public void showInfection(CityCard card) {
-
+    public void showInfection(CityCard card, int maxInfection) {
+        if(!onRound) return;
+        infectedCards.add(card);
+        if(infectedCards.size() == maxInfection)
+            graphics.draw(drawnCards, infectedCards);
     }
 
     @Override
     public List<CityCard> forecast() {
+        graphics.openInfectionTrash(game.forecast(), Interaction.INFECTIONDECKCARDCLICK);
+        eventReady = false;
         return null;
+    }
+
+    private void manageForecast(CityCard c){
+        List<CardComponent> components = graphics.getHand().getCards();
+        List<CityCard> forecastCards = new ArrayList<>(6);
+        for(int i = components.size(); i > 0; i--) forecastCards.add((CityCard) components.get(i-1).getCard());
+        for(CityCard card: forecastCards)
+            if(c.getName().equals(card.getName())){
+                forecastCards.remove(card);
+                break;
+            }
+        forecastCards.add(c);
+        replaceCards(forecastCards);
+        graphics.removeHand();
+        graphics.openInfectionTrash(game.forecast(), Interaction.INFECTIONDECKCARDCLICK);
     }
 
     @Override
     public InfectionTrash getTrash() {
-        graphics.openInfectionTrash(game.getTrash().getCards());
+        eventReady = false;
+        graphics.openInfectionTrash(game.getTrash().getCards(), Interaction.INFECTIONTRASHCARDCLICK);
         return null;
     }
 
     @Override
     public void replaceCards(List<CityCard> c) {
-
+        game.replaceCards(c);
     }
 
     @Override
     public void endRound() throws EndOfGame {
-        onRound = false;
         try{
             super.endRound();
-            game.nextRound();
+            onRound = false;
         }
         catch (PandemicException e){
             graphics.endGame();
         }
     }
 
+    @Override
+    public void add(Card c) {;
+        super.add(c);
+        if(!onRound) return;
+        drawnCards.add(c);
+    }
+
+    @Override
+    public void epidemic() throws EndOfGame {
+        super.epidemic();
+        if(!onRound) return;
+        drawnCards.add(new EpidemicCard());
+    }
+
+    @Override
+    public void finish() {
+        if(cards.size() > 7)
+            hasToDrop();
+        else {
+            waitingState = State.NULL;
+            try {
+                game.finishRound();
+                game.nextRound();
+            } catch (EndOfGame endOfGame) {
+                graphics.endGame();
+            }
+        }
+    }
+
+    /**
+     * Called when any important user interaction happened on the graphics interface.
+     * @param interaction the type of interaction that happened
+     * @param options specifications of the given interactions
+     */
     public void action(Interaction interaction, InteractionOptions options){
-        System.out.println(waitingState == State.EVENTSPECIFICATION ? "event" : waitingState == State.SHARECARD ? "share" : "NULL");
         int usedActions = 0;
-        if(interaction == Interaction.RESTARTCLICK) game.undo();
+        if(interaction == Interaction.RESTARTCLICK) {
+            game.undo();
+            graphics.newRound(this);
+            graphics.restart();
+            return;
+        }
         try{
             switch (waitingState){
                 case NULL:
@@ -98,6 +182,7 @@ public class GraphicsPlayer extends Player implements Serializable {
                                 EventCard event = (EventCard) this.hasCard(options.card.getName());
                                 if(event == null) throw new InvalidParameter("You don't have a card called" + options.card.getName());
                                 setEventOptions = new EventCard.EventOptions.Builder().setPlayer(this).build();
+                                this.waitingState = State.EVENTSPECIFICATION;
                                 character.playEvent(event);
                             }catch(Exception e){
                                 throw new CannotPerformAction(options.card.getName() + " is not an event card");
@@ -126,7 +211,43 @@ public class GraphicsPlayer extends Player implements Serializable {
                         case PASSCLICK:
                             this.endRound();
                             break;
+                        case CHARACTERCLICK:
+                            options.check(false, true, false, false);
+                            waitingState = State.ACTIONSPECIFICATION;
+                            setInteractionOptions = options;
+                            setInteraction = interaction;
+                            graphics.message("Choose a field, you'd like to move this character");
+                            break;
+                        case INFECTIONTRASHBUTTONCLICK:
+                            graphics.openInfectionTrash(game.getTrash().getCards(), Interaction.INFECTIONTRASHCARDCLICK);
+                            break;
+                        case MAINTRASHBUTTONCLICK:
+                            graphics.openInfectionTrash(game.getEvents(), Interaction.MAINTRASHCARDCLICK);
+                            break;
+                        case MAINTRASHCARDCLICK:
+                            options.check(false, false, false, true);
+                            usedActions += character.getEvent((EventCard)options.card);
+                            game.drawEvent((EventCard) options.card);
+                            graphics.removeHand();
+                            break;
                         default:return;
+                    }
+                    break;
+                case ACTIONSPECIFICATION:
+                    switch (interaction) {
+                        case CARDCLICK:
+                            options.check(false, false, false, true);
+                            chosenCard = options.card;
+                            waitingState = State.NULL;
+                            action(setInteraction, setInteractionOptions);
+                            break;
+                        case FIELDCLICK:
+                            options.check(true, false, false, false);
+                            setInteractionOptions.check(false, true, false, false);
+                            options.character = setInteractionOptions.character;
+                            reset();
+                            usedActions += character.move(options.field, options.character);
+                            break;
                     }
                     break;
                 case SHARECARD:
@@ -137,7 +258,10 @@ public class GraphicsPlayer extends Player implements Serializable {
                         case CARDCLICK:
                             options.check(false, false, false, true);
                             break;
-
+                        case OTHERCARDCLICK:
+                            options.check(false, false, true, true);
+                            usedActions += options.player.character.giveCard(this.character, (CityCard) options.card);
+                            break;
                         default: return;
                     }
                     if(usedActions == 0){
@@ -151,23 +275,44 @@ public class GraphicsPlayer extends Player implements Serializable {
                     }
                     break;
                 case EVENTSPECIFICATION:
+                case FINISHROUNDWITHEVENT:
                     switch (interaction){
                         case CHARACTERCLICK:
                             options.check(false, true, false, false);
                             setEventOptions.add(new EventCard.EventOptions.Builder().setCharacter(options.character).build());
+                            playEvent((EventCard) chosenCard);
                             break;
                         case FIELDCLICK:
                             options.check(true, false, false, false);
                             setEventOptions.add(new EventCard.EventOptions.Builder().setField(options.field).build());
+                            playEvent((EventCard) chosenCard);
                             break;
                         case INFECTIONTRASHCARDCLICK:
                             options.check(false, false, false, true);
                             manageResilentPopulation(options.card);
                             break;
-                        case OUTCLICK:
-                            reset();
+                        case INFECTIONDECKCARDCLICK:
+                            options.check(false, false, false, true);
+                            manageForecast((CityCard) options.card);
                             break;
                         default: return;
+                    }
+                    break;
+                case FINISHROUND:
+                    if(interaction == Interaction.CARDCLICK){
+                        options.check(false, false, false, true);
+                        Card chosenCard = this.hasCard(options.card.getName());
+                        if(chosenCard == null) throw new InvalidParameter("You don't have a card called" + options.card.getName());
+                        try{
+                            EventCard event = (EventCard)chosenCard;
+                            waitingState = State.FINISHROUNDWITHEVENT;
+                            setEventOptions = new EventCard.EventOptions.Builder().setPlayer(this).build();
+                            character.playEvent(event);
+                        }
+                        catch(Exception e){
+                            drop(chosenCard);
+                            finish();
+                        }
                     }
                     break;
             }
@@ -175,12 +320,17 @@ public class GraphicsPlayer extends Player implements Serializable {
         catch(InvalidCommand internal){
             alert(internal, "Error");
         }
+        catch(AmbigousAction e){
+            alert(e, "Error");
+            setInteraction = interaction;
+            setInteractionOptions = options;
+            waitingState = State.ACTIONSPECIFICATION;
+        }
         catch(CannotPerformAction e){
             alert(e, "Error");
         }
         catch (Exception e){
             alert(new CannotPerformAction(""), "The requested operation ended with an error");
-            e.printStackTrace();
         }
 
         try { this.useAction(usedActions); }
@@ -190,10 +340,12 @@ public class GraphicsPlayer extends Player implements Serializable {
     }
 
     private void reset(){
-        waitingState = State.NULL;
-        pendingEvent = null;
+        waitingState = waitingState == State.FINISHROUNDWITHEVENT ? State.FINISHROUND : State.NULL;
+        chosenCard = null;
         setInteractionOptions = new InteractionOptions.Builder().build();
+        setInteraction = Interaction.OUTCLICK;
         setEventOptions = new EventCard.EventOptions.Builder().build();
+        graphics.message("You are the " + character.getName() + ". Choose an action");
     }
 
     @Override
@@ -201,15 +353,21 @@ public class GraphicsPlayer extends Player implements Serializable {
         super.draw(c);
     }
 
+    /**
+     * Plays the given event card
+     * @param event
+     */
     @Override
     public void playEvent(EventCard event){
         try {
-            this.waitingState = State.EVENTSPECIFICATION;
-            this.pendingEvent = event;
+            eventReady = true;
+            this.chosenCard = event;
             event.play(setEventOptions);
-            drop(pendingEvent);
-            pendingEvent = null;
+            drop(chosenCard);
+            if(eventReady) reset();
+            if(waitingState == State.FINISHROUND) finish();
         } catch (CannotPerformAction e) {
+            eventReady = false;
             graphics.message(e.getMessage());
         }
     }
@@ -217,18 +375,24 @@ public class GraphicsPlayer extends Player implements Serializable {
     private void manageResilentPopulation(Card chosen){
         InfectionTrash trash = game.getTrash();
         trash.removeCard(chosen);
+        graphics.removeHand();
         reset();
     }
-    
-    public void alert(PandemicException e, String title){
+
+    private void alert(PandemicException e, String title){
         graphics.alert(e, title);
         this.waitingState = State.NULL;
     }
 
+
+
     private enum State{
         NULL,
+        ACTIONSPECIFICATION,
         EVENTSPECIFICATION,
-        SHARECARD
+        SHARECARD,
+        FINISHROUND,
+        FINISHROUNDWITHEVENT
     }
     public enum Interaction{
         CHARACTERCLICK,
@@ -242,6 +406,10 @@ public class GraphicsPlayer extends Player implements Serializable {
         PASSCLICK,
         RESTARTCLICK,
         INFECTIONTRASHCARDCLICK,
+        INFECTIONTRASHBUTTONCLICK,
+        INFECTIONDECKCARDCLICK,
+        MAINTRASHBUTTONCLICK,
+        MAINTRASHCARDCLICK,
         OUTCLICK
     }
 
